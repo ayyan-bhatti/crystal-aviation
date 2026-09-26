@@ -67,6 +67,9 @@ export default function LoginForm({ sb, notice, compact, defaultEmail = '' }: Pr
       <p className="eyebrow">The Crystal Aviation</p>
       <h1>Staff sign in</h1>
       {form}
+      <p className="small" style={{ marginTop: 'var(--space-l)', marginBottom: 0 }}>
+        <a href="/">← Back to website</a>
+      </p>
     </div>
   );
 }

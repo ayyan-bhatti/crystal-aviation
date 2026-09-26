@@ -20,6 +20,8 @@ Items the owner must confirm or supply. **Nothing below has been guessed on the 
 
 ## Accounts and access
 
+- [ ] **Remove the temporary demo login `admin@travel.com` before launch.** It was created on request with a short, simple password for the demo and does not meet the site's password rules. The `travel.com` domain also belongs to someone else. Run `npm run staff:add -- revoke admin@travel.com`, then delete the user in Supabase → Authentication → Users.
+
 - [ ] The domain registrar login is available to the owner, with renewal on the owner's account.
 - [ ] A Cloudflare account (free) is owned by the business, not an individual developer.
 - [ ] A Supabase project (free) is owned by the business. Record the database password in a password manager.

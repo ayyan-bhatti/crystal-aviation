@@ -472,3 +472,4 @@ a.intro__photo:hover img { transform: scale(1.04); }
 .notice__photo { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .notice__body { display: grid; gap: var(--space-s); padding: var(--space-l); }
 @media (min-width: 700px) { .notice--with-photo { grid-template-columns: 16rem 1fr; } .notice__photo { height: 100%; aspect-ratio: auto; min-height: 11rem; } }
+.footer-links { display: inline-flex; gap: var(--space-l); flex-wrap: wrap; }
