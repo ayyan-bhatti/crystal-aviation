@@ -468,3 +468,7 @@ a.intro__photo:hover img { transform: scale(1.04); }
   .explore__title { font-size: 0.98rem; }
   .explore__cta { font-size: 0.85rem; }
 }
+.notice--with-photo { grid-template-columns: 1fr; padding: 0; overflow: hidden; border-left-width: 1px; }
+.notice__photo { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.notice__body { display: grid; gap: var(--space-s); padding: var(--space-l); }
+@media (min-width: 700px) { .notice--with-photo { grid-template-columns: 16rem 1fr; } .notice__photo { height: 100%; aspect-ratio: auto; min-height: 11rem; } }

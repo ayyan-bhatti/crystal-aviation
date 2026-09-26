@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import { categoryPhotos } from '../../lib/category-photos';
+import { pickPhoto } from '../../lib/photo-pick';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import OfferDetailView from '../../components/offers/OfferDetailView';
 import Icon from '../../components/Icon';
@@ -41,23 +42,29 @@ const photos = await categoryPhotos();
       <p class="small"><a href="/promotions">← All offers</a></p>
       {
         offer ? (
-          <OfferDetailView offer={offer} pageUrl={pageUrl} imageSrc={image} fallbackSrc={photos[offer.category]} callTel={site.landline.tel} />
+          <OfferDetailView offer={offer} pageUrl={pageUrl} imageSrc={image} fallbackSrc={pickPhoto(photos, offer.category, offer.destination)} callTel={site.landline.tel} />
         ) : res.status === 'error' ? (
-          <div class="notice notice--warn narrow" role="status">
+          <div class="notice notice--warn notice--with-photo" role="status">
+            <img class="notice__photo" src={photos.other} alt="" />
+            <div class="notice__body">
             <h1 style="font-size: var(--step-3)">We couldn’t load this offer just now</h1>
             <p>Please try again in a moment, or ask us about it directly.</p>
             <div class="btn-row">
               <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
               <a class="btn btn--ghost" href={`tel:${site.landline.tel}`}><Icon name="phone" /> Call</a>
             </div>
+            </div>
           </div>
         ) : (
-          <div class="notice narrow">
+          <div class="notice notice--with-photo">
+            <img class="notice__photo" src={photos.other} alt="" />
+            <div class="notice__body">
             <h1 style="font-size: var(--step-3)">This offer is no longer available</h1>
             <p>It may have ended or been removed. Our team can tell you about similar options.</p>
             <div class="btn-row">
               <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
               <a class="btn btn--ghost" href="/promotions">See current offers</a>
+            </div>
             </div>
           </div>
         )

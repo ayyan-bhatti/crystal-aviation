@@ -4,7 +4,9 @@ These photos are **temporary** placeholders until the agency supplies its own. A
 
 | File | Subject | Photographer | Source |
 |---|---|---|---|
-| madinah-golden-hour.jpg | Masjid an-Nabawi courtyard at sunset, Madinah | Haidan | https://unsplash.com/photos/RhkbHU14MoA |
+| makkah-kaaba-clock.jpg | The Kaaba and the clock tower, Makkah | Danish Habib | https://unsplash.com/photos/Jyj3Q1eIELI |
+| makkah-kaaba-courtyard.jpg | Pilgrims around the Kaaba, Makkah | tasnim umar | https://unsplash.com/photos/blbwkwHPItE |
+| madinah-mosque.jpg | The Green Dome, Masjid an-Nabawi, Madinah | A Miah | https://unsplash.com/photos/hJXiPheKFus |
 | madinah-green-dome.jpg | Green Dome and minarets, Masjid an-Nabawi | Juned Khatri | https://unsplash.com/photos/RJjHsurofj8 |
 | makkah-haram-night.jpg | Masjid al-Haram at night, Makkah | Ben Latif | https://unsplash.com/photos/VExggm_apD0 |
 | baku-old-city.jpg | Old city street with the Flame Towers, Baku | Bao Menglong | https://unsplash.com/photos/npwNgsQwmTU |

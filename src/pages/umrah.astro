@@ -8,7 +8,9 @@ import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
 import makkah from '../assets/photos/makkah-haram-night.jpg';
 import greenDome from '../assets/photos/madinah-green-dome.jpg';
-import madinah from '../assets/photos/madinah-golden-hour.jpg';
+import kaabaClock from '../assets/photos/makkah-kaaba-clock.jpg';
+import kaabaCourtyard from '../assets/photos/makkah-kaaba-courtyard.jpg';
+import madinahMosque from '../assets/photos/madinah-mosque.jpg';
 import { site } from '../config/site';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
@@ -26,8 +28,11 @@ const photos = await categoryPhotos();
     label="Umrah"
     title="Umrah, arranged around your family."
     lead="Speak directly with our team about when you’d like to travel, who is coming with you, and what matters most for your journey."
-    photos={[{ src: madinah, alt: "The courtyard of Masjid an-Nabawi in Madinah at sunset, with worshippers beneath the great umbrellas", position: "40% 50%" }]}
-    caption="Masjid an-Nabawi, Madinah"
+    photos={[
+      { src: kaabaClock, alt: "The Kaaba in Masjid al-Haram with the clock tower behind it", label: "Makkah", position: "50% 65%" },
+      { src: kaabaCourtyard, alt: "Pilgrims in the courtyard around the Kaaba, Makkah", label: "Masjid al-Haram" },
+      { src: madinahMosque, alt: "The Green Dome and minarets of Masjid an-Nabawi, Madinah", label: "Madinah", position: "30% 50%" },
+    ]}
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about Umrah</a>
   </Intro>

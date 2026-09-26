@@ -19,4 +19,11 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   security: { checkOrigin: true },
+  vite: {
+    // Pre-bundle React up front so the dev server never re-optimises it mid-session
+    // (which breaks hydration with "_jsxDEV is not a function").
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime', 'react/jsx-dev-runtime', '@supabase/supabase-js'],
+    },
+  },
 });

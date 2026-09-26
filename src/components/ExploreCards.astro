@@ -2,7 +2,7 @@
 // Clickable photo cards that lead to the rest of the site (Umrah, each
 // destination, visa help and offers).
 import { Image } from 'astro:assets';
-import madinah from '../assets/photos/madinah-golden-hour.jpg';
+import makkah from '../assets/photos/makkah-kaaba-courtyard.jpg';
 import baku from '../assets/photos/baku-old-city.jpg';
 import bangkok from '../assets/photos/bangkok-wat-arun.jpg';
 import singapore from '../assets/photos/singapore-supertrees.jpg';
@@ -18,7 +18,7 @@ interface Props {
 const { heading = 'Where would you like to go?', intro } = Astro.props;
 
 const cards = [
-  { title: 'Umrah', cta: 'View Umrah', href: '/umrah', src: madinah, alt: 'Masjid an-Nabawi in Madinah at sunset', pos: '40% 50%' },
+  { title: 'Umrah', cta: 'View Umrah', href: '/umrah', src: makkah, alt: 'Pilgrims around the Kaaba in Masjid al-Haram, Makkah', pos: '50% 50%' },
   { title: 'Baku, Azerbaijan', cta: 'View Baku', href: '/tours#baku', src: baku, alt: 'Old-city street in Baku with the Flame Towers', pos: '50% 60%' },
   { title: 'Thailand', cta: 'View Thailand', href: '/tours#thailand', src: bangkok, alt: 'Wat Arun temple in Bangkok at sunset', pos: '50% 50%' },
   { title: 'Singapore', cta: 'View Singapore', href: '/tours#singapore', src: singapore, alt: 'Supertree Grove at Gardens by the Bay, Singapore', pos: '50% 30%' },

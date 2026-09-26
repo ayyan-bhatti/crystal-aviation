@@ -6,10 +6,9 @@ import '@fontsource/poppins/700.css';
 import '@fontsource/cinzel/600.css';
 import '../styles/global.css';
 import { getImage } from 'astro:assets';
-import heroPhoto from '../assets/photos/madinah-golden-hour.jpg';
+import heroPhoto from '../assets/photos/makkah-kaaba-courtyard.jpg';
 import Icon from '../components/Icon';
 import { nav, site } from '../config/site';
-import { isDemoMode } from '../lib/config';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
 interface Props {
@@ -36,7 +35,7 @@ const {
 } = Astro.props;
 
 const canonical = site.url + (path === '/' ? '/' : path);
-const fullTitle = path === '/' ? `${site.name} — ${site.tagline}, Faisalabad` : `${title} | ${site.name}`;
+const fullTitle = path === '/' ? `${site.name} | ${site.tagline}, Faisalabad` : `${title} | ${site.name}`;
 const defaultOg = await getImage({ src: heroPhoto, width: 1200, height: 630, format: 'jpg', fit: 'cover' });
 const og = ogImage ?? new URL(defaultOg.src, site.url).toString();
 const current = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -70,13 +69,6 @@ const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    {
-      isDemoMode ? (
-        <div class="demo-banner" role="note">
-          Demo preview. Sample offers are placeholders, not real packages or prices.
-        </div>
-      ) : null
-    }
     <div class="topbar">
       <div class="container topbar__inner">
         <span>Main Gulberg Road, Faisalabad · <a href={`tel:${site.landline.tel}`}>{site.landline.display}</a></span>

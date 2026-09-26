@@ -6,7 +6,8 @@ import LiveOffers from '../components/offers/LiveOffers';
 import CardContact from '../components/CardContact.astro';
 import VisaRegions from '../components/VisaRegions.astro';
 import Icon from '../components/Icon';
-import madinah from '../assets/photos/madinah-golden-hour.jpg';
+import kaabaClock from '../assets/photos/makkah-kaaba-clock.jpg';
+import madinahMosque from '../assets/photos/madinah-mosque.jpg';
 import greenDome from '../assets/photos/madinah-green-dome.jpg';
 import makkah from '../assets/photos/makkah-haram-night.jpg';
 import baku from '../assets/photos/baku-old-city.jpg';
@@ -47,12 +48,12 @@ const photos = await categoryPhotos();
       </div>
       <figure class="hero__media">
         <div class="hero__main">
-          <Image src={madinah} alt="Worshippers crossing the courtyard of Masjid an-Nabawi in Madinah at sunset, under its great umbrellas" widths={[640, 900, 1300, 1800]} sizes="(min-width: 900px) 45vw, 100vw" loading="eager" fetchpriority="high" style="object-position: 38% 50%" />
+          <Image src={kaabaClock} alt="The Kaaba in Masjid al-Haram, Makkah, with the clock tower rising behind it" widths={[640, 900, 1300, 1650]} sizes="(min-width: 900px) 45vw, 100vw" loading="eager" fetchpriority="high" style="object-position: 50% 60%" />
         </div>
         <div class="hero__inset" aria-hidden="true">
-          <Image src={bangkok} alt="" widths={[300, 500]} sizes="18vw" loading="eager" />
+          <Image src={madinahMosque} alt="" widths={[300, 500]} sizes="18vw" loading="eager" style="object-position: 30% 50%" />
         </div>
-        <figcaption class="caption">Masjid an-Nabawi, Madinah</figcaption>
+        <figcaption class="caption">Masjid al-Haram, Makkah, and Masjid an-Nabawi, Madinah</figcaption>
       </figure>
     </div>
   </section>

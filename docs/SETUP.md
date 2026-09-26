@@ -74,7 +74,7 @@ npm install
 npm run dev            # http://localhost:4321  (runs in Cloudflare's workerd runtime)
 ```
 
-- **No credentials in `.env`?** `npm run dev` shows a clearly labelled **demo mode** with sample offers. Production builds never include the demo fixtures. Without configuration they show an "offers unavailable" message instead.
+- **No credentials in `.env`?** `npm run dev` shows general service entries (Umrah packages, Baku holidays, airline tickets and so on) with photos and "Contact for price", so the site can be reviewed before Supabase is connected. They have no prices, dates or other invented details. Production builds never include them; without configuration a production build shows an "offers unavailable" message instead.
 - **To preview a production build in workerd:** `npm run build && npm run preview`.
 
 ## 6. Tests

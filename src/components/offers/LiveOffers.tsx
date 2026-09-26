@@ -5,6 +5,7 @@ import type { Category, PublicPromotion } from '../../lib/types';
 import { whatsappLink } from '../../lib/whatsapp';
 import Icon from '../Icon';
 import OfferCard from './OfferCard';
+import { pickPhoto } from '../../lib/photo-pick';
 
 interface Props {
   category?: Category | Category[];
@@ -18,7 +19,7 @@ interface Props {
   /** Link to the full offers list, shown under a non-empty list. */
   moreHref?: string;
   /** Category photos for offers without a poster. */
-  fallbacks?: Partial<Record<Category, string>>;
+  fallbacks?: Partial<Record<string, string>>;
 }
 
 type State =
@@ -104,6 +105,9 @@ export default function LiveOffers({
   }, [state]);
 
   const wa = whatsappLink(whatsappMessage);
+  const firstCategory = Array.isArray(category) ? category[0] : category;
+  const noticePhoto = pickPhoto(fallbacks, firstCategory ?? 'other');
+  const photo = noticePhoto ? <img className="notice__photo" src={noticePhoto} alt="" loading="lazy" /> : null;
 
   if (state.kind === 'loading') {
     return (
@@ -120,7 +124,9 @@ export default function LiveOffers({
 
   if (state.kind === 'error') {
     return (
-      <div className="notice notice--warn" role="status">
+      <div className="notice notice--warn notice--with-photo" role="status">
+        {photo}
+        <div className="notice__body">
         <h3>We couldn’t load the latest offers just now</h3>
         <p>Please try again shortly, or ask us directly on WhatsApp for current Umrah, tour, ticket and hotel offers.</p>
         <div className="btn-row">
@@ -131,13 +137,16 @@ export default function LiveOffers({
             Try again
           </button>
         </div>
+        </div>
       </div>
     );
   }
 
   if (state.items.length === 0) {
     return (
-      <div className="notice" role="status">
+      <div className="notice notice--with-photo" role="status">
+        {photo}
+        <div className="notice__body">
         <p>{emptyText}</p>
         <p className="muted">Message us and we’ll share what’s currently available.</p>
         <div className="btn-row">
@@ -145,20 +154,16 @@ export default function LiveOffers({
             <Icon name="whatsapp" /> Continue on WhatsApp
           </a>
         </div>
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      {state.demo ? (
-        <p className="notice notice--warn small" style={{ marginBottom: 'var(--space-m)' }}>
-          Demo preview: these are sample offers for layout only, not real packages.
-        </p>
-      ) : null}
       <div className="offers-grid">
         {state.items.map((o) => (
-          <OfferCard key={o.id} offer={o} headingLevel={headingLevel} fallbackSrc={fallbacks?.[o.category]} />
+          <OfferCard key={o.id} offer={o} headingLevel={headingLevel} fallbackSrc={pickPhoto(fallbacks, o.category, o.destination)} />
         ))}
       </div>
       {state.refreshFailed ? (
