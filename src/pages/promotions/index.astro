@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHero from '../../components/PageHero.astro';
+import Intro from '../../components/Intro.astro';
 import LiveOffers from '../../components/offers/LiveOffers';
 import Icon from '../../components/Icon';
 import { site } from '../../config/site';
@@ -31,15 +31,15 @@ const msg = serviceEnquiryMessage('your current offers', site.url + '/promotions
   description="Current Umrah, tour, airline-ticket, hotel and visa-assistance promotions from The Crystal Aviation, Faisalabad. Ask about any offer on WhatsApp."
   whatsappMessage={msg}
 >
-  <PageHero
-    eyebrow="Offers"
-    title="Current promotions"
-    lead="Offers published by our team. Prices and availability are always confirmed with you directly before anything is booked."
+  <Intro
+    label="Offers"
+    title="Current offers"
+    lead="Umrah, tour, airline-ticket and hotel promotions published by our team. Prices and availability are always confirmed with you before anything is booked."
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about offers</a>
-  </PageHero>
+  </Intro>
 
-  <section class="section" aria-labelledby="offers-list">
+  <section class="section" style="padding-top: var(--space-l)" aria-labelledby="offers-list">
     <div class="container">
       <h2 id="offers-list" class="visually-hidden">Offers</h2>
       {

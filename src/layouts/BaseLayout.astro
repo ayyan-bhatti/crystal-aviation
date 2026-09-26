@@ -1,10 +1,10 @@
 ---
-import '@fontsource-variable/fraunces';
-import '@fontsource-variable/inter';
+import '@fontsource-variable/bodoni-moda/opsz.css';
+import '@fontsource-variable/hanken-grotesk';
 import '@fontsource/cinzel/600.css';
 import '../styles/global.css';
 import { getImage } from 'astro:assets';
-import heroPhoto from '../assets/photos/hero-wing-clouds.jpg';
+import heroPhoto from '../assets/photos/madinah-golden-hour.jpg';
 import Icon from '../components/Icon';
 import { nav, site } from '../config/site';
 import { isDemoMode } from '../lib/config';
@@ -77,6 +77,14 @@ const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
         </div>
       ) : null
     }
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <span>Main Gulberg Road, Faisalabad · <a href={`tel:${site.landline.tel}`}>{site.landline.display}</a></span>
+        <span class="topbar__people">
+          {site.team.map((m) => <span>{m.name}, {m.role}: <a href={`tel:${m.tel}`}>{m.display}</a></span>)}
+        </span>
+      </div>
+    </div>
     <header class="site-header">
       <div class="container site-header__inner">
         <a href="/" class="wordmark" aria-label={`${site.name}, home`}>
@@ -118,7 +126,7 @@ const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
               <span class="wordmark__name">The <span>Crystal</span> Aviation</span>
               <span class="wordmark__tag">{site.tagline}</span>
             </a>
-            <p style="margin-top: var(--space-m)">Umrah, international tours and visa file assistance from Faisalabad.</p>
+            <p style="margin-top: var(--space-m); max-width: 18rem">Umrah, holidays abroad and visa application files, arranged from Faisalabad.</p>
           </div>
           <div>
             <h2>Explore</h2>

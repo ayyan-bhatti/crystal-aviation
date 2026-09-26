@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  label?: string;
+  title: string;
+  lead: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  caption?: string;
+  position?: string;
+}
+const { label, title, lead, image, imageAlt = '', caption, position = 'center' } = Astro.props;
+---
+
+<section class="intro" aria-labelledby="page-title">
+  <div class="container">
+    <div class="intro__grid">
+      <div>
+        {label ? <p class="label">{label}</p> : null}
+        <h1 id="page-title">{title}</h1>
+      </div>
+      <div>
+        <p class="lead">{lead}</p>
+        <div class="btn-row"><slot /></div>
+      </div>
+    </div>
+  </div>
+</section>
+{
+  image ? (
+    <div class="container">
+      <figure class="wide-photo">
+        <div>
+          <Image src={image} alt={imageAlt} widths={[640, 1024, 1600, 2200]} sizes="(min-width: 1300px) 1216px, 100vw" loading="eager" fetchpriority="high" style={`object-position: ${position}`} />
+        </div>
+        {caption ? <figcaption class="caption">{caption}</figcaption> : null}
+      </figure>
+    </div>
+  ) : null
+}

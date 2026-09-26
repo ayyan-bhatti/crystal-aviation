@@ -1,0 +1,38 @@
+---
+// Contact block laid out like the agency's printed business card:
+// two named contacts, website and email line, and the blue address band.
+import Icon from './Icon';
+import { site } from '../config/site';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+
+const msg = serviceEnquiryMessage('your travel services');
+---
+
+<div class="card-contact">
+  <div class="card-contact__people">
+    {
+      site.team.map((m) => (
+        <div>
+          <p class="card-contact__name">{m.name}</p>
+          <p class="card-contact__role">{m.role}</p>
+          <div class="contact-lines">
+            <a href={whatsappLink(msg, m.whatsapp)} target="_blank" rel="noopener" aria-label={`WhatsApp ${m.name}, ${m.display}`}>
+              <Icon name="whatsapp" /> {m.display}
+            </a>
+            <a href={`tel:${m.tel}`} aria-label={`Call ${m.name}, ${m.display}`}>
+              <Icon name="phone" /> Call
+            </a>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="card-contact__meta">
+    <a href={`tel:${site.landline.tel}`}><Icon name="phone" /> Office {site.landline.display}</a>
+    <a href={`mailto:${site.email}`}><Icon name="mail" /> {site.email}</a>
+  </div>
+  <a class="card-contact__band" href={site.address.mapsUrl} target="_blank" rel="noopener">
+    <Icon name="pin" />
+    <span>{site.address.street}, {site.address.city}</span>
+  </a>
+</div>

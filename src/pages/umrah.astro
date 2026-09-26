@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import Intro from '../components/Intro.astro';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
-import umrah from '../assets/photos/umrah-kaaba-courtyard.jpg';
+import makkah from '../assets/photos/makkah-haram-night.jpg';
+import greenDome from '../assets/photos/madinah-green-dome.jpg';
+import madinah from '../assets/photos/madinah-golden-hour.jpg';
 import { site } from '../config/site';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
@@ -14,55 +17,63 @@ const msg = serviceEnquiryMessage('Umrah', site.url + '/umrah');
 <BaseLayout
   title="Umrah"
   path="/umrah"
-  description="Plan your Umrah with The Crystal Aviation in Faisalabad. Talk to our team about dates, travellers and preferences, and see current Umrah offers."
+  description="Plan your Umrah with The Crystal Aviation in Faisalabad. Talk to our team about dates, travellers and where you'd like to stay, and see current Umrah offers."
   whatsappMessage={msg}
 >
-  <PageHero
-    eyebrow="Umrah"
-    title="Umrah, planned around you"
-    lead="Speak directly with our team about your Umrah: when you’d like to travel, who is travelling with you, and what matters most for your journey."
-    image={umrah}
-    position="50% 45%"
+  <Intro
+    label="Umrah"
+    title="Umrah, arranged around your family."
+    lead="Speak directly with our team about when you’d like to travel, who is coming with you, and what matters most for your journey."
+    image={madinah}
+    imageAlt="The courtyard of Masjid an-Nabawi in Madinah at sunset, with worshippers beneath the great umbrellas"
+    caption="Masjid an-Nabawi, Madinah"
+    position="50% 55%"
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about Umrah</a>
-  </PageHero>
+  </Intro>
 
-  <section class="section section--paper" aria-labelledby="umrah-offers">
+  <section class="section" aria-labelledby="umrah-offers">
     <div class="container">
-      <p class="eyebrow">Current Umrah offers</p>
-      <h2 id="umrah-offers" style="margin-bottom: var(--space-xl)">Umrah promotions</h2>
-      <LiveOffers
-        client:load
-        category="umrah"
-        limit={12}
-        emptyText="There are no Umrah offers published on the website at the moment."
-        whatsappMessage={msg}
-      />
+      <div class="section-head">
+        <h2 id="umrah-offers">Umrah offers</h2>
+        <p>Current Umrah promotions from our team. Ask us on WhatsApp for dates and availability.</p>
+      </div>
+      <LiveOffers client:load category="umrah" limit={12} emptyText="There are no Umrah offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 
-  <section class="section" aria-labelledby="umrah-plan">
+  <section class="section section--lapis" aria-labelledby="umrah-plan">
+    <div class="container chapter chapter--reverse">
+      <div>
+        <h2 id="umrah-plan">Before you message us</h2>
+        <p class="lead">You don’t need everything decided. These details help us give you relevant options sooner.</p>
+        <ul class="line-list">
+          <li>Your preferred month or dates, and how flexible they are</li>
+          <li>How many people are travelling, including children and elderly travellers</li>
+          <li>The city you’d like to travel from</li>
+          <li>Where you’d like to stay, such as distance to the Haram</li>
+          <li>An approximate budget, if you have one in mind</li>
+        </ul>
+      </div>
+      <div class="chapter__photos">
+        <figure>
+          <div class="ph"><Image src={makkah} alt="Masjid al-Haram in Makkah at night, lit up and filled with worshippers" widths={[400, 700, 1000]} sizes="(min-width: 900px) 30vw, 55vw" /></div>
+          <figcaption class="caption">Masjid al-Haram, Makkah</figcaption>
+        </figure>
+        <figure>
+          <div class="ph"><Image src={greenDome} alt="The green dome and minarets of Masjid an-Nabawi against a blue sky" widths={[300, 600, 800]} sizes="(min-width: 900px) 24vw, 45vw" /></div>
+          <figcaption class="caption">The Green Dome, Madinah</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="umrah-enquiry">
     <div class="container split">
       <div>
-        <p class="eyebrow">Before you message us</p>
-        <h2 id="umrah-plan">Helpful things to share</h2>
-        <p class="lead">You don’t need everything decided. These details help us give you relevant options more quickly.</p>
+        <h2 id="umrah-enquiry">Start your enquiry</h2>
+        <p class="lead">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
       </div>
-      <ul class="checklist">
-        <li>Your preferred month or travel dates, and how flexible they are</li>
-        <li>How many people are travelling, including children and elderly travellers</li>
-        <li>The city you’d like to travel from</li>
-        <li>Any preferences for your stay, such as distance to the Haram</li>
-        <li>An approximate budget, if you have one in mind</li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="section section--tint" aria-labelledby="umrah-enquiry">
-    <div class="container narrow">
-      <p class="eyebrow">Enquire</p>
-      <h2 id="umrah-enquiry">Start your Umrah enquiry</h2>
-      <p class="lead" style="margin-bottom: var(--space-l)">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
       <EnquiryComposer
         client:visible
         services={['Umrah']}

@@ -1,98 +1,87 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import Intro from '../components/Intro.astro';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
-import baku from '../assets/photos/baku-flame-towers.jpg';
-import thailand from '../assets/photos/thailand-phi-phi.jpg';
-import singapore from '../assets/photos/singapore-marina-bay.jpg';
-import malaysia from '../assets/photos/malaysia-petronas.jpg';
+import baku from '../assets/photos/baku-old-city.jpg';
+import bangkok from '../assets/photos/bangkok-wat-arun.jpg';
+import singapore from '../assets/photos/singapore-supertrees.jpg';
+import langkawi from '../assets/photos/langkawi-bay.jpg';
 import { site } from '../config/site';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
 const pageUrl = site.url + '/tours';
 const msg = serviceEnquiryMessage('an international tour', pageUrl);
+const ask = (d: string) => whatsappLink(serviceEnquiryMessage(`a tour to ${d}`, pageUrl));
 
 // Destinations mentioned by the client. These are enquiry prompts, not packages.
 const destinations = [
-  { name: 'Baku', country: 'Azerbaijan', image: baku, alt: 'Baku’s Flame Towers above the city and bay', note: 'Modern skyline and old city by the Caspian Sea.' },
-  { name: 'Thailand', country: '', image: thailand, alt: 'Longtail boat on turquoise water near limestone cliffs in Koh Phi Phi, Thailand', note: 'Islands, beaches and busy city life.' },
-  { name: 'Singapore', country: '', image: singapore, alt: 'Marina Bay Sands and the bay in Singapore on a clear day', note: 'A compact, easy-to-explore city break.' },
-  { name: 'Malaysia', country: '', image: malaysia, alt: 'The Petronas Twin Towers in Kuala Lumpur, seen from a pool below', note: 'Kuala Lumpur and beyond.' },
+  { name: 'Baku', note: 'Old city lanes, the Flame Towers and the Caspian waterfront.', image: baku, alt: 'Old-city street in Baku with carved balconies, the Flame Towers rising behind', pos: '50% 60%' },
+  { name: 'Thailand', note: 'Bangkok’s temples and markets, then the islands and beaches.', image: bangkok, alt: 'Wat Arun temple in Bangkok glowing at sunset across the Chao Phraya river', pos: '50% 50%' },
+  { name: 'Singapore', note: 'A compact, green and easy city for families.', image: singapore, alt: 'The Supertree Grove and skyway at Gardens by the Bay, Singapore', pos: '50% 30%' },
+  { name: 'Malaysia', note: 'Kuala Lumpur, and island time in Langkawi.', image: langkawi, alt: 'View over the islands and bay of Langkawi, Malaysia, from the hills', pos: '50% 50%' },
 ];
 ---
 
 <BaseLayout
   title="International tours"
   path="/tours"
-  description="International tours arranged by The Crystal Aviation, Faisalabad, to destinations such as Baku, Thailand, Singapore and Malaysia. Ask on WhatsApp."
+  description="Holidays abroad arranged by The Crystal Aviation, Faisalabad, to places like Baku, Thailand, Singapore and Malaysia. Ask us on WhatsApp."
   whatsappMessage={msg}
 >
-  <PageHero
-    eyebrow="International tours"
-    title="Holidays abroad, arranged around you"
-    lead="Tell us where you’d like to go, when, and who’s coming. We’ll talk through what’s available for your dates."
-    image={singapore}
-    position="50% 35%"
+  <Intro
+    label="International tours"
+    title="Holidays abroad, arranged around you."
+    lead="Tell us where you’d like to go, when, and who’s coming. We’ll talk through what’s available for your dates, including airline tickets and hotels."
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about a tour</a>
-  </PageHero>
+  </Intro>
 
-  <section class="section" aria-labelledby="dest-title">
+  <section class="section" style="padding-top: 0" aria-label="Destinations">
     <div class="container">
-      <p class="eyebrow">Popular with our travellers</p>
-      <h2 id="dest-title">Where would you like to go?</h2>
-      <p class="lead" style="margin-bottom: var(--space-xl)">
-        A few of the destinations we’re often asked about. Packages, dates and prices vary, so ask us what’s currently available.
-      </p>
-      <div class="destinations">
+      <div class="mosaic">
         {
-          destinations.map((d) => (
-            <article class="destination">
-              <Image src={d.image} alt={d.alt} widths={[400, 700, 1000]} sizes="(min-width: 1100px) 25vw, (min-width: 600px) 50vw, 100vw" />
-              <div class="destination__body">
-                <h3>{d.name}</h3>
-                <p>{d.note}</p>
-                <a class="btn btn--whatsapp btn--small" href={whatsappLink(serviceEnquiryMessage(`a tour to ${d.name}`, pageUrl))} target="_blank" rel="noopener">
-                  <Icon name="whatsapp" /> Ask about {d.name}
-                </a>
+          destinations.map((d, i) => (
+            <a class:list={['tile', { 'tile--tall': i === 0 }]} href={ask(d.name)} target="_blank" rel="noopener">
+              <Image src={d.image} alt={d.alt} widths={[500, 800, 1200]} sizes="(min-width: 1000px) 35vw, 100vw" style={`object-position: ${d.pos}`} />
+              <div class="tile__body">
+                <h2 class="tile__name">{d.name}</h2>
+                <p class="tile__note">{d.note}</p>
+                <span class="tile__cta">Ask about {d.name}</span>
               </div>
-            </article>
+            </a>
           ))
         }
+        <div class="tile tile--text">
+          <div class="tile__body">
+            <p class="tile__name">Somewhere else?</p>
+            <p class="tile__note">Tell us where and when, and we’ll look into it.</p>
+          </div>
+        </div>
       </div>
-      <p class="small muted" style="margin-top: var(--space-m)">Planning somewhere else? Just ask.</p>
+      <p class="small muted" style="margin-top: var(--space-m)">Packages, dates and prices vary, so ask us what’s currently available.</p>
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="tour-offers">
+  <section class="section section--white" aria-labelledby="tour-offers">
     <div class="container">
-      <p class="eyebrow">Current offers</p>
-      <h2 id="tour-offers" style="margin-bottom: var(--space-xl)">Tour, ticket and hotel promotions</h2>
-      <LiveOffers
-        client:load
-        category={['tour', 'flight', 'hotel']}
-        limit={12}
-        emptyText="There are no tour, ticket or hotel offers published on the website at the moment."
-        whatsappMessage={msg}
-      />
+      <div class="section-head">
+        <h2 id="tour-offers">Tour, ticket and hotel offers</h2>
+        <p>Current promotions from our team.</p>
+      </div>
+      <LiveOffers client:load category={['tour', 'flight', 'hotel']} limit={12} emptyText="There are no tour, ticket or hotel offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 
-  <section class="section section--tint" aria-labelledby="tour-enquiry">
-    <div class="container narrow">
-      <p class="eyebrow">Enquire</p>
-      <h2 id="tour-enquiry">Plan your trip</h2>
-      <p class="lead" style="margin-bottom: var(--space-l)">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
-      <EnquiryComposer
-        client:visible
-        services={['International tour', 'Airline tickets', 'Hotel booking']}
-        callTel={site.landline.tel}
-        callDisplay={site.landline.display}
-        email={site.email}
-      />
+  <section class="section section--sand" aria-labelledby="tour-enquiry">
+    <div class="container split">
+      <div>
+        <h2 id="tour-enquiry">Plan your trip</h2>
+        <p class="lead">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
+      </div>
+      <EnquiryComposer client:visible services={['International tour', 'Airline tickets', 'Hotel booking']} callTel={site.landline.tel} callDisplay={site.landline.display} email={site.email} />
     </div>
   </section>
 </BaseLayout>

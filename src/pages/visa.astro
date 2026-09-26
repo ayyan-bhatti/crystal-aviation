@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
+import Intro from '../components/Intro.astro';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
@@ -16,54 +16,56 @@ const msg = serviceEnquiryMessage('visa application assistance', site.url + '/vi
   description="Help preparing visa application files for the UK, USA and Europe from The Crystal Aviation, Faisalabad. Discuss your circumstances privately with our team."
   whatsappMessage={msg}
 >
-  <PageHero
-    eyebrow="Visa assistance"
-    title="Help preparing your visa application file"
+  <Intro
+    label="Visa assistance"
+    title="Application files, prepared properly."
     lead="Consultation and application-file support for visits to the United Kingdom, the United States and Europe."
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Discuss your application</a>
-  </PageHero>
+  </Intro>
 
-  <section class="section" aria-labelledby="visa-what">
-    <div class="container split">
+  <section class="section section--sand" aria-labelledby="visa-what">
+    <div class="container split" style="align-items: center">
       <div>
-        <p class="eyebrow">What we help with</p>
-        <h2 id="visa-what">Organised, complete application files</h2>
-        <p class="lead">Every applicant’s situation is different. We talk through your plans and help you prepare and organise your application file.</p>
+        <h2 id="visa-what">What we help with</h2>
+        <ul class="checklist">
+          <li>A private conversation about your travel purpose and plans</li>
+          <li>Understanding what the application usually asks for</li>
+          <li>Organising and preparing your application file</li>
+        </ul>
       </div>
-      <ul class="checklist">
-        <li>A private conversation about your travel purpose and plans</li>
-        <li>Help understanding what the application usually asks for</li>
-        <li>Support organising and preparing your application file</li>
-        <li>Destinations: United Kingdom, United States and Europe</li>
+      <ul class="regions" aria-label="Destinations we help with">
+        <li>United Kingdom</li>
+        <li>United States</li>
+        <li>Europe</li>
       </ul>
     </div>
   </section>
 
-  <section class="section section--tint" aria-labelledby="visa-important">
-    <div class="container narrow">
-      <div class="notice">
-        <h2 id="visa-important" style="font-size: var(--step-2)">Please note</h2>
-        <p>Visa decisions are made only by the relevant embassy, consulate or immigration authority. No agent can guarantee an approval or a processing time.</p>
+  <section class="section" aria-labelledby="visa-important">
+    <div class="container split">
+      <h2 id="visa-important">Please note</h2>
+      <div>
+        <p class="lead">Visa decisions are made only by the relevant embassy, consulate or immigration authority. No agent can guarantee an approval or a processing time.</p>
         <p>Requirements change and depend on your personal circumstances, so please discuss your case with our team directly rather than relying on general information.</p>
-        <p><strong>Don’t send passports, bank statements or other personal documents through this website.</strong> Our team will tell you how to share documents safely if needed.</p>
+        <p><strong>Please don’t send passports, bank statements or other personal documents through this website.</strong> Our team will tell you how to share documents safely if needed.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--paper" aria-labelledby="visa-offers">
+  <section class="section section--white" aria-labelledby="visa-offers">
     <div class="container">
-      <p class="eyebrow">Current offers</p>
-      <h2 id="visa-offers" style="margin-bottom: var(--space-xl)">Visa assistance promotions</h2>
+      <div class="section-head"><h2 id="visa-offers">Visa assistance offers</h2></div>
       <LiveOffers client:visible category="visa" limit={6} emptyText="There are no visa-assistance offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 
-  <section class="section" aria-labelledby="visa-enquiry">
-    <div class="container narrow">
-      <p class="eyebrow">Enquire</p>
-      <h2 id="visa-enquiry">Start a conversation</h2>
-      <p class="lead" style="margin-bottom: var(--space-l)">Share only general details here. We’ll discuss your circumstances privately.</p>
+  <section class="section section--sand" aria-labelledby="visa-enquiry">
+    <div class="container split">
+      <div>
+        <h2 id="visa-enquiry">Start a conversation</h2>
+        <p class="lead">Share only general details here. We’ll discuss your circumstances privately.</p>
+      </div>
       <EnquiryComposer
         client:visible
         services={['Visa assistance: United Kingdom', 'Visa assistance: United States', 'Visa assistance: Europe']}

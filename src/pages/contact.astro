@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import ContactBlock from '../components/ContactBlock.astro';
+import Intro from '../components/Intro.astro';
+import CardContact from '../components/CardContact.astro';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
 import { site } from '../config/site';
@@ -18,19 +18,23 @@ const msg = serviceEnquiryMessage('your travel services', site.url + '/contact')
   jsonLd={travelAgencyJsonLd()}
   whatsappMessage={msg}
 >
-  <PageHero eyebrow="Contact" title="Talk to our team" lead="WhatsApp or call us directly, send an email, or visit the office in Faisalabad.">
-    <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Chat on WhatsApp</a>
+  <Intro label="Contact" title="Talk to us directly." lead="WhatsApp or call our team, send an email, or visit the office on Main Gulberg Road, Faisalabad.">
+    <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
     <a class="btn btn--ghost" href={`tel:${site.landline.tel}`}><Icon name="phone" /> {site.landline.display}</a>
-  </PageHero>
+  </Intro>
 
-  <section class="section">
+  <section class="section" style="padding-top: var(--space-l)">
     <div class="container contact-grid">
       <div>
-        <h2>Contact details</h2>
-        <ContactBlock />
+        <h2 class="visually-hidden">Contact details</h2>
+        <CardContact />
+        <p class="small muted" style="margin-top: var(--space-l)">
+          {site.address.lines.join(', ')}.{' '}
+          <a href={site.address.mapsUrl} target="_blank" rel="noopener">Open in Google Maps</a>
+        </p>
       </div>
       <div>
-        <h2>Send an enquiry</h2>
+        <h2 style="font-size: var(--step-3)">Send an enquiry</h2>
         <p class="muted">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
         <EnquiryComposer
           client:visible

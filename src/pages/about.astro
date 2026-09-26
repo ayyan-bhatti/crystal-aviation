@@ -1,39 +1,44 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import ContactBlock from '../components/ContactBlock.astro';
-import hero from '../assets/photos/hero-wing-clouds.jpg';
+import Intro from '../components/Intro.astro';
+import CardContact from '../components/CardContact.astro';
+import greenDome from '../assets/photos/madinah-green-dome.jpg';
 import { site } from '../config/site';
 ---
 
 <BaseLayout
   title="About us"
   path="/about"
-  description="The Crystal Aviation is a Faisalabad travel agency led by Umar Farooq (CEO) and Zeeshan Saleem (MD), offering Umrah, international tours and visa file assistance."
+  description="The Crystal Aviation is a Faisalabad travel agency led by Umar Farooq (CEO) and Zeeshan Saleem (MD), arranging Umrah, holidays abroad and visa application files."
 >
-  <PageHero eyebrow="About us" title={site.name} lead={`${site.tagline}. A travel agency on Main Gulberg Road, Faisalabad.`} image={hero} position="60% 40%" />
+  <Intro
+    label="About us"
+    title={site.name}
+    lead={`${site.tagline}. A travel agency in Rafih Plaza, Main Gulberg Road, Faisalabad.`}
+    image={greenDome}
+    imageAlt="The green dome and minarets of Masjid an-Nabawi against a blue sky"
+    caption="Masjid an-Nabawi, Madinah"
+    position="50% 40%"
+  />
 
   <section class="section">
-    <div class="container split" style="align-items: start">
+    <div class="container split">
+      <p class="statement">We arrange Umrah, holidays abroad and visa application files for travellers from Faisalabad.</p>
       <div>
-        <h2>Who we are</h2>
         <p class="lead">
-          {site.name} helps travellers from Faisalabad with Umrah, international tours, and visa application files for the
-          UK, USA and Europe. We also share special airline-ticket and hotel offers as they become available.
+          The agency is led by {site.team[0].name}, {site.team[0].role}, and {site.team[1].name}, {site.team[1].role}.
+          You can speak with them directly by phone or WhatsApp, or visit the office.
         </p>
-        <p>
-          The agency is led by {site.team[0].name}, {site.team[0].role}, and {site.team[1].name}, {site.team[1].role}. You can speak with them directly
-          by phone or WhatsApp, or visit the office.
-        </p>
-        <p class="muted">
-          We are a travel agency, not an airline. Offers on this website are enquiries, and nothing is booked until our team
-          confirms it with you.
-        </p>
+        <p>We also share special airline-ticket and hotel offers as they become available. You’ll find them on our offers page.</p>
+        <p class="muted">We are a travel agency, not an airline. Offers on this website are a starting point for a conversation, and nothing is booked until our team confirms it with you.</p>
       </div>
-      <div>
-        <h2 class="visually-hidden">Contact</h2>
-        <ContactBlock />
-      </div>
+    </div>
+  </section>
+
+  <section class="section section--sand" aria-labelledby="about-contact">
+    <div class="container">
+      <h2 id="about-contact" class="visually-hidden">Contact</h2>
+      <div style="max-width: 52rem; margin-inline: auto"><CardContact /></div>
     </div>
   </section>
 </BaseLayout>
