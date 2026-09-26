@@ -1,4 +1,5 @@
 ---
+import { categoryPhotos } from '../lib/category-photos';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Intro from '../components/Intro.astro';
@@ -12,6 +13,7 @@ import { site } from '../config/site';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
 const msg = serviceEnquiryMessage('Umrah', site.url + '/umrah');
+const photos = await categoryPhotos();
 ---
 
 <BaseLayout
@@ -38,7 +40,7 @@ const msg = serviceEnquiryMessage('Umrah', site.url + '/umrah');
         <h2 id="umrah-offers">Umrah offers</h2>
         <p>Current Umrah promotions from our team. Ask us on WhatsApp for dates and availability.</p>
       </div>
-      <LiveOffers client:load category="umrah" limit={12} emptyText="There are no Umrah offers published on the website at the moment." whatsappMessage={msg} />
+      <LiveOffers fallbacks={photos} client:load category="umrah" limit={12} emptyText="There are no Umrah offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 

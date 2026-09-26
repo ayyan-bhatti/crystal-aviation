@@ -1,6 +1,9 @@
 ---
+import { categoryPhotos } from '../lib/category-photos';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Intro from '../components/Intro.astro';
+import VisaRegions from '../components/VisaRegions.astro';
+import london from '../assets/photos/london-big-ben.jpg';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
@@ -8,6 +11,7 @@ import { site } from '../config/site';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 
 const msg = serviceEnquiryMessage('visa application assistance', site.url + '/visa');
+const photos = await categoryPhotos();
 ---
 
 <BaseLayout
@@ -20,6 +24,10 @@ const msg = serviceEnquiryMessage('visa application assistance', site.url + '/vi
     label="Visa assistance"
     title="Application files, prepared properly."
     lead="Consultation and application-file support for visits to the United Kingdom, the United States and Europe."
+    image={london}
+    imageAlt="Big Ben and the Houses of Parliament in London with a red bus passing"
+    caption="Westminster, London"
+    position="50% 12%"
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Discuss your application</a>
   </Intro>
@@ -34,11 +42,7 @@ const msg = serviceEnquiryMessage('visa application assistance', site.url + '/vi
           <li>Organising and preparing your application file</li>
         </ul>
       </div>
-      <ul class="regions" aria-label="Destinations we help with">
-        <li>United Kingdom</li>
-        <li>United States</li>
-        <li>Europe</li>
-      </ul>
+      <VisaRegions />
     </div>
   </section>
 
@@ -56,7 +60,7 @@ const msg = serviceEnquiryMessage('visa application assistance', site.url + '/vi
   <section class="section section--white" aria-labelledby="visa-offers">
     <div class="container">
       <div class="section-head"><h2 id="visa-offers">Visa assistance offers</h2></div>
-      <LiveOffers client:visible category="visa" limit={6} emptyText="There are no visa-assistance offers published on the website at the moment." whatsappMessage={msg} />
+      <LiveOffers fallbacks={photos} client:visible category="visa" limit={6} emptyText="There are no visa-assistance offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Intro from '../components/Intro.astro';
+import wing from '../assets/photos/wing-above-clouds.jpg';
 
 const credits = [
   ["Masjid an-Nabawi courtyard at sunset, Madinah", "Haidan", "https://unsplash.com/photos/RhkbHU14MoA"],
@@ -9,13 +11,19 @@ const credits = [
   ["Wat Arun at sunset, Bangkok", "Haley Hong", "https://unsplash.com/photos/MKVGJ4d3E6c"],
   ["Supertree Grove and skyway, Singapore", "NIR HIMI", "https://unsplash.com/photos/ZHnzLl4oRCU"],
   ["Langkawi bay and islands, Malaysia", "belettenoir", "https://unsplash.com/photos/yAnklpY716k"],
+  ["Big Ben and a red bus, London", "Andri Aeschlimann", "https://unsplash.com/photos/xqT1dfWb9RE"],
+  ["Brooklyn Bridge and Manhattan at dusk, New York", "Massimiliano Morosinotto", "https://unsplash.com/photos/00pM5WzCzR8"],
+  ["Paris street with the Eiffel Tower", "Wafer WAN", "https://unsplash.com/photos/2a8XxXq3cx4"],
+  ["Travellers at departure boards", "Jacques Dillies", "https://unsplash.com/photos/CgHB4gcjUkQ"],
+  ["Airport departures board", "jack berry", "https://unsplash.com/photos/hNQ0RH_a5Jo"],
+  ["Aircraft wing above golden clouds", "Tim Schmidbauer", "https://unsplash.com/photos/_7gSua5Xniw"],
 ];
 ---
 
 <BaseLayout title="Photo credits" path="/image-credits" description="Credits for photography used on this website." noindex>
+  <Intro title="Photo credits" lead="Photography used on this website, with thanks to the photographers." image={wing} imageAlt="An aircraft wing above golden clouds" />
   <section class="section">
     <div class="container narrow">
-      <h1 style="font-size: var(--step-4)">Photo credits</h1>
       <p>Photography from <a href="https://unsplash.com" rel="noopener">Unsplash</a>, used under the Unsplash License.</p>
       <ul>
         {credits.map(([what, who, url]) => <li>{what}, by <a href={url} rel="noopener">{who}</a></li>)}

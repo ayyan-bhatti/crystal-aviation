@@ -1,10 +1,12 @@
 ---
+import { categoryPhotos } from '../lib/category-photos';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Intro from '../components/Intro.astro';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
+import wing from '../assets/photos/wing-above-clouds.jpg';
 import baku from '../assets/photos/baku-old-city.jpg';
 import bangkok from '../assets/photos/bangkok-wat-arun.jpg';
 import singapore from '../assets/photos/singapore-supertrees.jpg';
@@ -23,6 +25,7 @@ const destinations = [
   { name: 'Singapore', note: 'A compact, green and easy city for families.', image: singapore, alt: 'The Supertree Grove and skyway at Gardens by the Bay, Singapore', pos: '50% 30%' },
   { name: 'Malaysia', note: 'Kuala Lumpur, and island time in Langkawi.', image: langkawi, alt: 'View over the islands and bay of Langkawi, Malaysia, from the hills', pos: '50% 50%' },
 ];
+const photos = await categoryPhotos();
 ---
 
 <BaseLayout
@@ -35,11 +38,14 @@ const destinations = [
     label="International tours"
     title="Holidays abroad, arranged around you."
     lead="Tell us where you’d like to go, when, and who’s coming. We’ll talk through what’s available for your dates, including airline tickets and hotels."
+    image={wing}
+    imageAlt="An aircraft wing above golden clouds at sunrise"
+    position="50% 60%"
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about a tour</a>
   </Intro>
 
-  <section class="section" style="padding-top: 0" aria-label="Destinations">
+  <section class="section" aria-label="Destinations">
     <div class="container">
       <div class="mosaic">
         {
@@ -71,7 +77,7 @@ const destinations = [
         <h2 id="tour-offers">Tour, ticket and hotel offers</h2>
         <p>Current promotions from our team.</p>
       </div>
-      <LiveOffers client:load category={['tour', 'flight', 'hotel']} limit={12} emptyText="There are no tour, ticket or hotel offers published on the website at the moment." whatsappMessage={msg} />
+      <LiveOffers fallbacks={photos} client:load category={['tour', 'flight', 'hotel']} limit={12} emptyText="There are no tour, ticket or hotel offers published on the website at the moment." whatsappMessage={msg} />
     </div>
   </section>
 

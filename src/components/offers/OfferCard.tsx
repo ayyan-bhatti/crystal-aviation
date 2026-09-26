@@ -7,11 +7,14 @@ export default function OfferCard({
   offer,
   headingLevel = 3,
   imageSrc,
+  fallbackSrc,
 }: {
   offer: PublicPromotion;
   headingLevel?: 2 | 3;
   /** Override the poster source (editor preview of an unsaved image). */
   imageSrc?: string | null;
+  /** Category photo shown when the offer has no poster. */
+  fallbackSrc?: string | null;
 }) {
   const price = formatPrice(offer);
   const img = imageSrc !== undefined ? imageSrc : posterUrl(offer.image_path);
@@ -23,6 +26,10 @@ export default function OfferCard({
       {img ? (
         <div className="offer-card__poster">
           <img src={img} alt={offer.image_alt ?? ''} loading="lazy" decoding="async" width={800} height={1000} />
+        </div>
+      ) : fallbackSrc ? (
+        <div className="offer-card__poster offer-card__poster--photo">
+          <img src={fallbackSrc} alt="" loading="lazy" decoding="async" width={800} height={1000} />
         </div>
       ) : (
         <div className="offer-card__poster offer-card__poster--empty" aria-hidden="true">

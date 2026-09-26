@@ -4,6 +4,7 @@ import Intro from '../components/Intro.astro';
 import CardContact from '../components/CardContact.astro';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
+import travellers from '../assets/photos/airport-travellers.jpg';
 import { site } from '../config/site';
 import { travelAgencyJsonLd } from '../lib/seo';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
@@ -18,12 +19,12 @@ const msg = serviceEnquiryMessage('your travel services', site.url + '/contact')
   jsonLd={travelAgencyJsonLd()}
   whatsappMessage={msg}
 >
-  <Intro label="Contact" title="Talk to us directly." lead="WhatsApp or call our team, send an email, or visit the office on Main Gulberg Road, Faisalabad.">
+  <Intro label="Contact" title="Talk to us directly." lead="WhatsApp or call our team, send an email, or visit the office on Main Gulberg Road, Faisalabad." image={travellers} imageAlt="Two travellers with backpacks looking at departure boards" position="50% 35%">
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
     <a class="btn btn--ghost" href={`tel:${site.landline.tel}`}><Icon name="phone" /> {site.landline.display}</a>
   </Intro>
 
-  <section class="section" style="padding-top: var(--space-l)">
+  <section class="section">
     <div class="container contact-grid">
       <div>
         <h2 class="visually-hidden">Contact details</h2>

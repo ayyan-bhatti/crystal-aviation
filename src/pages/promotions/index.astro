@@ -1,10 +1,12 @@
 ---
 export const prerender = false;
 
+import { categoryPhotos } from '../../lib/category-photos';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Intro from '../../components/Intro.astro';
 import LiveOffers from '../../components/offers/LiveOffers';
 import Icon from '../../components/Icon';
+import departures from '../../assets/photos/airport-departures.jpg';
 import { site } from '../../config/site';
 import { fetchActivePromotions, MAX_PAGE_SIZE } from '../../lib/promotions-api';
 import { CATEGORIES, CATEGORY_LABELS, type Category } from '../../lib/types';
@@ -23,6 +25,7 @@ const initial =
 if (all.status === 'error') Astro.response.status = 503;
 
 const msg = serviceEnquiryMessage('your current offers', site.url + '/promotions');
+const photos = await categoryPhotos();
 ---
 
 <BaseLayout
@@ -35,11 +38,14 @@ const msg = serviceEnquiryMessage('your current offers', site.url + '/promotions
     label="Offers"
     title="Current offers"
     lead="Umrah, tour, airline-ticket and hotel promotions published by our team. Prices and availability are always confirmed with you before anything is booked."
+    image={departures}
+    imageAlt="Travellers walking past a large departures board in an airport"
+    position="50% 40%"
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about offers</a>
   </Intro>
 
-  <section class="section" style="padding-top: var(--space-l)" aria-labelledby="offers-list">
+  <section class="section" aria-labelledby="offers-list">
     <div class="container">
       <h2 id="offers-list" class="visually-hidden">Offers</h2>
       {
@@ -55,6 +61,7 @@ const msg = serviceEnquiryMessage('your current offers', site.url + '/promotions
         ) : null
       }
       <LiveOffers
+        fallbacks={photos}
         client:load
         initial={initial}
         category={selected ?? undefined}

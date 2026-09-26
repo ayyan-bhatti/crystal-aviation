@@ -1,19 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Intro from '../components/Intro.astro';
 import Icon from '../components/Icon';
+import langkawi from '../assets/photos/langkawi-bay.jpg';
 import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
 ---
 
 <BaseLayout title="Page not found" path="/404" description="This page could not be found." noindex>
-  <section class="section">
-    <div class="container narrow">
-      <p class="eyebrow">404</p>
-      <h1 style="font-size: var(--step-4)">We couldn’t find that page</h1>
-      <p class="lead">The link may be old, or the page may have moved.</p>
-      <div class="btn-row">
-        <a class="btn" href="/">Go to the homepage</a>
-        <a class="btn btn--whatsapp" href={whatsappLink(serviceEnquiryMessage('your travel services'))} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
-      </div>
-    </div>
-  </section>
+  <Intro
+    label="Page not found"
+    title="We couldn’t find that page."
+    lead="The link may be old, or the page may have moved. Try the homepage, or message us and we’ll help."
+    image={langkawi}
+    imageAlt="View over the islands and bay of Langkawi, Malaysia"
+  >
+    <a class="btn" href="/">Go to the homepage</a>
+    <a class="btn btn--whatsapp" href={whatsappLink(serviceEnquiryMessage('your travel services'))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
+  </Intro>
+  <div class="section" style="padding-top: 0"></div>
 </BaseLayout>

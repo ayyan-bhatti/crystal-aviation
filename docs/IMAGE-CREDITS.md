@@ -11,6 +11,12 @@ These photos are **temporary** placeholders until the agency supplies its own. A
 | bangkok-wat-arun.jpg | Wat Arun at sunset, Bangkok | Haley Hong | https://unsplash.com/photos/MKVGJ4d3E6c |
 | singapore-supertrees.jpg | Supertree Grove and skyway, Singapore | NIR HIMI | https://unsplash.com/photos/ZHnzLl4oRCU |
 | langkawi-bay.jpg | Langkawi bay and islands, Malaysia | belettenoir | https://unsplash.com/photos/yAnklpY716k |
+| london-big-ben.jpg | Big Ben and a red bus, London | Andri Aeschlimann | https://unsplash.com/photos/xqT1dfWb9RE |
+| new-york-brooklyn-bridge.jpg | Brooklyn Bridge and Manhattan at dusk, New York | Massimiliano Morosinotto | https://unsplash.com/photos/00pM5WzCzR8 |
+| paris-street.jpg | Paris street with the Eiffel Tower | Wafer WAN | https://unsplash.com/photos/2a8XxXq3cx4 |
+| airport-travellers.jpg | Travellers at departure boards | Jacques Dillies | https://unsplash.com/photos/CgHB4gcjUkQ |
+| airport-departures.jpg | Airport departures board | jack berry | https://unsplash.com/photos/hNQ0RH_a5Jo |
+| wing-above-clouds.jpg | Aircraft wing above golden clouds | Tim Schmidbauer | https://unsplash.com/photos/_7gSua5Xniw |
 
 Not used on purpose: passport photos. The free options showed US passports, which would mislead on a visa-assistance page for Pakistani travellers.
 

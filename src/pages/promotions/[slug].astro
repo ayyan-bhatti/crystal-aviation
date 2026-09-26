@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import { categoryPhotos } from '../../lib/category-photos';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import OfferDetailView from '../../components/offers/OfferDetailView';
 import Icon from '../../components/Icon';
@@ -23,6 +24,7 @@ const description = offer
   ? (offer.summary ?? offer.description ?? `${offer.title}: an offer from ${site.name}. Ask on WhatsApp.`).slice(0, 160)
   : 'This offer is not available.';
 const msg = offer ? promotionEnquiryMessage(offer.title, pageUrl) : serviceEnquiryMessage('your current offers', pageUrl);
+const photos = await categoryPhotos();
 ---
 
 <BaseLayout
@@ -39,7 +41,7 @@ const msg = offer ? promotionEnquiryMessage(offer.title, pageUrl) : serviceEnqui
       <p class="small"><a href="/promotions">← All offers</a></p>
       {
         offer ? (
-          <OfferDetailView offer={offer} pageUrl={pageUrl} imageSrc={image} callTel={site.landline.tel} />
+          <OfferDetailView offer={offer} pageUrl={pageUrl} imageSrc={image} fallbackSrc={photos[offer.category]} callTel={site.landline.tel} />
         ) : res.status === 'error' ? (
           <div class="notice notice--warn narrow" role="status">
             <h1 style="font-size: var(--step-3)">We couldn’t load this offer just now</h1>

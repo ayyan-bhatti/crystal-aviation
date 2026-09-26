@@ -12,6 +12,8 @@ interface Props {
   imageSrc: string | null;
   callTel: string;
   preview?: boolean;
+  /** Category photo shown when the offer has no poster. */
+  fallbackSrc?: string | null;
 }
 
 /**
@@ -19,7 +21,7 @@ interface Props {
  * dashboard preview, so staff see exactly what customers will see.
  * All text is rendered as React text nodes — never as HTML.
  */
-export default function OfferDetailView({ offer, pageUrl, imageSrc, callTel, preview }: Props) {
+export default function OfferDetailView({ offer, pageUrl, imageSrc, callTel, preview, fallbackSrc }: Props) {
   const price = formatPrice(offer);
   const wa = whatsappLink(promotionEnquiryMessage(offer.title, pageUrl));
   const travel =
@@ -45,6 +47,10 @@ export default function OfferDetailView({ offer, pageUrl, imageSrc, callTel, pre
               </a>
             </figcaption>
           </figure>
+        ) : fallbackSrc ? (
+          <div className="offer-card__poster offer-card__poster--photo">
+            <img src={fallbackSrc} alt="" decoding="async" />
+          </div>
         ) : (
           <div className="offer-card__poster offer-card__poster--empty" style={{ borderRadius: 'var(--radius-m)' }} aria-hidden="true">
             {CATEGORY_LABELS[offer.category]}

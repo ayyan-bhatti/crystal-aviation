@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import london from '../assets/photos/london-big-ben.jpg';
+import newYork from '../assets/photos/new-york-brooklyn-bridge.jpg';
+import paris from '../assets/photos/paris-street.jpg';
+
+const regions = [
+  { name: 'United Kingdom', image: london, alt: 'Big Ben and the Houses of Parliament in London with a red bus passing' },
+  { name: 'United States', image: newYork, alt: 'The Brooklyn Bridge and Manhattan skyline in New York at dusk' },
+  { name: 'Europe', image: paris, alt: 'A Paris street with the Eiffel Tower at the end' },
+];
+---
+
+<ul class="photo-cards" aria-label="Destinations we help with">
+  {
+    regions.map((r) => (
+      <li class="photo-card">
+        <Image src={r.image} alt={r.alt} widths={[400, 700]} sizes="(min-width: 860px) 16vw, (min-width: 560px) 33vw, 100vw" />
+        <span>{r.name}</span>
+      </li>
+    ))
+  }
+</ul>

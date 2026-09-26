@@ -17,6 +17,8 @@ interface Props {
   headingLevel?: 2 | 3;
   /** Link to the full offers list, shown under a non-empty list. */
   moreHref?: string;
+  /** Category photos for offers without a poster. */
+  fallbacks?: Partial<Record<Category, string>>;
 }
 
 type State =
@@ -42,6 +44,7 @@ export default function LiveOffers({
   whatsappMessage,
   headingLevel = 3,
   moreHref,
+  fallbacks,
 }: Props) {
   const [state, setState] = useState<State>(() => (initial ? fromResult(initial) : { kind: 'loading' }));
   const lastLoad = useRef<number>(initial ? Date.now() : 0);
@@ -155,7 +158,7 @@ export default function LiveOffers({
       ) : null}
       <div className="offers-grid">
         {state.items.map((o) => (
-          <OfferCard key={o.id} offer={o} headingLevel={headingLevel} />
+          <OfferCard key={o.id} offer={o} headingLevel={headingLevel} fallbackSrc={fallbacks?.[o.category]} />
         ))}
       </div>
       {state.refreshFailed ? (
