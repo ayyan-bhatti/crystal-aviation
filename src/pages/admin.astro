@@ -1,0 +1,24 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import '../styles/admin.css';
+import AdminApp from '../components/admin/AdminApp';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Staff dashboard | The Crystal Aviation</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="admin-body">
+    <main>
+      <AdminApp client:only="react" />
+      <noscript><p style="padding: 2rem">The staff dashboard needs JavaScript enabled.</p></noscript>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+{
+  // Cloudflare Workers (Free) with static assets. Astro's adapter supplies main/assets automatically.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crystal-aviation",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": false }
+}

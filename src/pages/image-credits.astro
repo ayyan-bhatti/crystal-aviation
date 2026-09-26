@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const credits = [
+  ['Aircraft wing above clouds', 'Tim Schmidbauer', 'https://unsplash.com/photos/_7gSua5Xniw'],
+  ['Kaaba, Masjid al-Haram', 'Sam Riz', 'https://unsplash.com/photos/ceNCWYqL8DY'],
+  ['Baku Flame Towers', 'Zulfugar Karimov', 'https://unsplash.com/photos/xfj5caGscb8'],
+  ['Marina Bay, Singapore', 'Meriç Dağlı', 'https://unsplash.com/photos/Uii70ORiFPE'],
+  ['Petronas Towers, Kuala Lumpur', 'Filipe Freitas', 'https://unsplash.com/photos/3KuiMofVB0Q'],
+  ['Koh Phi Phi, Thailand', 'Vivek Panwar', 'https://unsplash.com/photos/JJv2brBlaZE'],
+];
+---
+
+<BaseLayout title="Photo credits" path="/image-credits" description="Credits for photography used on this website." noindex>
+  <section class="section">
+    <div class="container narrow">
+      <h1 style="font-size: var(--step-4)">Photo credits</h1>
+      <p>Photography from <a href="https://unsplash.com" rel="noopener">Unsplash</a>, used under the Unsplash License.</p>
+      <ul>
+        {credits.map(([what, who, url]) => <li>{what}, by <a href={url} rel="noopener">{who}</a></li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

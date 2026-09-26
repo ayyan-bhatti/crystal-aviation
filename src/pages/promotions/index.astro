@@ -1,0 +1,68 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import LiveOffers from '../../components/offers/LiveOffers';
+import Icon from '../../components/Icon';
+import { site } from '../../config/site';
+import { fetchActivePromotions, MAX_PAGE_SIZE } from '../../lib/promotions-api';
+import { CATEGORIES, CATEGORY_LABELS, type Category } from '../../lib/types';
+import { serviceEnquiryMessage, whatsappLink } from '../../lib/whatsapp';
+
+// Fresh on every request: no shared cache can keep an expired offer visible.
+Astro.response.headers.set('Cache-Control', 'no-store');
+
+const param = Astro.url.searchParams.get('category');
+const selected = (CATEGORIES as readonly string[]).includes(param ?? '') ? (param as Category) : null;
+
+const all = await fetchActivePromotions({ limit: MAX_PAGE_SIZE });
+const present = all.status === 'ok' ? CATEGORIES.filter((c) => all.data.some((p) => p.category === c)) : [];
+const initial =
+  all.status === 'ok' && selected ? { ...all, data: all.data.filter((p) => p.category === selected) } : all;
+if (all.status === 'error') Astro.response.status = 503;
+
+const msg = serviceEnquiryMessage('your current offers', site.url + '/promotions');
+---
+
+<BaseLayout
+  title={selected ? `${CATEGORY_LABELS[selected]} offers` : 'Current offers'}
+  path={selected ? `/promotions?category=${selected}` : '/promotions'}
+  description="Current Umrah, tour, airline-ticket, hotel and visa-assistance promotions from The Crystal Aviation, Faisalabad. Ask about any offer on WhatsApp."
+  whatsappMessage={msg}
+>
+  <PageHero
+    eyebrow="Offers"
+    title="Current promotions"
+    lead="Offers published by our team. Prices and availability are always confirmed with you directly before anything is booked."
+  >
+    <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about offers</a>
+  </PageHero>
+
+  <section class="section" aria-labelledby="offers-list">
+    <div class="container">
+      <h2 id="offers-list" class="visually-hidden">Offers</h2>
+      {
+        present.length > 1 ? (
+          <nav class="filters" aria-label="Filter offers by type">
+            <a href="/promotions" aria-current={selected ? undefined : 'true'}>All</a>
+            {present.map((c) => (
+              <a href={`/promotions?category=${c}`} aria-current={selected === c ? 'true' : undefined}>
+                {CATEGORY_LABELS[c]}
+              </a>
+            ))}
+          </nav>
+        ) : null
+      }
+      <LiveOffers
+        client:load
+        initial={initial}
+        category={selected ?? undefined}
+        limit={MAX_PAGE_SIZE}
+        headingLevel={3}
+        emptyText={selected ? `There are no ${CATEGORY_LABELS[selected].toLowerCase()} offers published right now.` : 'There are no offers published on the website right now.'}
+        whatsappMessage={msg}
+      />
+    </div>
+  </section>
+</BaseLayout>

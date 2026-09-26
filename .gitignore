@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+backups/
+test-results/
+supabase/.branches
+supabase/.temp
+*.log
+.DS_Store

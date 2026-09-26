@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import EnquiryComposer from '../components/EnquiryComposer';
+import Icon from '../components/Icon';
+import { site } from '../config/site';
+import { travelAgencyJsonLd } from '../lib/seo';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+
+const msg = serviceEnquiryMessage('your travel services', site.url + '/contact');
+---
+
+<BaseLayout
+  title="Contact"
+  path="/contact"
+  description="Contact The Crystal Aviation, Faisalabad: WhatsApp or call Umar Farooq or Zeeshan Saleem, call 041 547 47 99, email thecrystalaviation@gmail.com, or visit Rafih Plaza, Main Gulberg Road."
+  jsonLd={travelAgencyJsonLd()}
+  whatsappMessage={msg}
+>
+  <PageHero eyebrow="Contact" title="Talk to our team" lead="WhatsApp or call us directly, send an email, or visit the office in Faisalabad.">
+    <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Chat on WhatsApp</a>
+    <a class="btn btn--ghost" href={`tel:${site.landline.tel}`}><Icon name="phone" /> {site.landline.display}</a>
+  </PageHero>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div>
+        <h2>Contact details</h2>
+        <ContactBlock />
+      </div>
+      <div>
+        <h2>Send an enquiry</h2>
+        <p class="muted">Fill in what you know. We’ll turn it into a WhatsApp message for you to send.</p>
+        <EnquiryComposer
+          client:visible
+          services={['General enquiry', 'Umrah', 'International tour', 'Airline tickets', 'Hotel booking', 'Visa assistance']}
+          callTel={site.landline.tel}
+          callDisplay={site.landline.display}
+          email={site.email}
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

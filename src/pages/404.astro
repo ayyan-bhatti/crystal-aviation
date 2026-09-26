@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+---
+
+<BaseLayout title="Page not found" path="/404" description="This page could not be found." noindex>
+  <section class="section">
+    <div class="container narrow">
+      <p class="eyebrow">404</p>
+      <h1 style="font-size: var(--step-4)">We couldn’t find that page</h1>
+      <p class="lead">The link may be old, or the page may have moved.</p>
+      <div class="btn-row">
+        <a class="btn" href="/">Go to the homepage</a>
+        <a class="btn btn--whatsapp" href={whatsappLink(serviceEnquiryMessage('your travel services'))} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

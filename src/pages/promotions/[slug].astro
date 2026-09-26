@@ -1,0 +1,65 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OfferDetailView from '../../components/offers/OfferDetailView';
+import Icon from '../../components/Icon';
+import { site } from '../../config/site';
+import { fetchPromotionBySlug, posterUrl } from '../../lib/promotions-api';
+import { promotionEnquiryMessage, serviceEnquiryMessage, whatsappLink } from '../../lib/whatsapp';
+
+Astro.response.headers.set('Cache-Control', 'no-store');
+
+const slug = Astro.params.slug ?? '';
+const res = await fetchPromotionBySlug(slug);
+const offer = res.status === 'ok' ? res.data : null;
+const pageUrl = `${site.url}/promotions/${slug}`;
+
+if (res.status === 'error') Astro.response.status = 503;
+else if (!offer) Astro.response.status = 404;
+
+const image = offer ? posterUrl(offer.image_path) : null;
+const description = offer
+  ? (offer.summary ?? offer.description ?? `${offer.title}: an offer from ${site.name}. Ask on WhatsApp.`).slice(0, 160)
+  : 'This offer is not available.';
+const msg = offer ? promotionEnquiryMessage(offer.title, pageUrl) : serviceEnquiryMessage('your current offers', pageUrl);
+---
+
+<BaseLayout
+  title={offer ? offer.title : res.status === 'error' ? 'Offer temporarily unavailable' : 'Offer not available'}
+  path={`/promotions/${slug}`}
+  description={description}
+  ogImage={image}
+  ogImageAlt={offer?.image_alt ?? undefined}
+  noindex={!offer}
+  whatsappMessage={msg}
+>
+  <div class="section">
+    <div class="container">
+      <p class="small"><a href="/promotions">← All offers</a></p>
+      {
+        offer ? (
+          <OfferDetailView offer={offer} pageUrl={pageUrl} imageSrc={image} callTel={site.landline.tel} />
+        ) : res.status === 'error' ? (
+          <div class="notice notice--warn narrow" role="status">
+            <h1 style="font-size: var(--step-3)">We couldn’t load this offer just now</h1>
+            <p>Please try again in a moment, or ask us about it directly.</p>
+            <div class="btn-row">
+              <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
+              <a class="btn btn--ghost" href={`tel:${site.landline.tel}`}><Icon name="phone" /> Call</a>
+            </div>
+          </div>
+        ) : (
+          <div class="notice narrow">
+            <h1 style="font-size: var(--step-3)">This offer is no longer available</h1>
+            <p>It may have ended or been removed. Our team can tell you about similar options.</p>
+            <div class="btn-row">
+              <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask on WhatsApp</a>
+              <a class="btn btn--ghost" href="/promotions">See current offers</a>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

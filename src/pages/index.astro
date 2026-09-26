@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LiveOffers from '../components/offers/LiveOffers';
+import ContactBlock from '../components/ContactBlock.astro';
+import Icon from '../components/Icon';
+import hero from '../assets/photos/hero-wing-clouds.jpg';
+import umrah from '../assets/photos/umrah-kaaba-courtyard.jpg';
+import baku from '../assets/photos/baku-flame-towers.jpg';
+import { site } from '../config/site';
+import { travelAgencyJsonLd } from '../lib/seo';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+
+const waGeneral = whatsappLink(serviceEnquiryMessage('your travel services', site.url + '/'));
+---
+
+<BaseLayout
+  title="Home"
+  path="/"
+  description="The Crystal Aviation, Faisalabad: Umrah travel, international tours to destinations such as Baku, Thailand, Singapore and Malaysia, and visa application file assistance. Enquire on WhatsApp."
+  jsonLd={travelAgencyJsonLd()}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <Image src={hero} alt="" widths={[640, 1024, 1440, 2000]} sizes="100vw" loading="eager" fetchpriority="high" />
+    </div>
+    <div class="container">
+      <div class="hero__content">
+        <p class="eyebrow">Travel agency · Faisalabad</p>
+        <h1 id="hero-title">Umrah, tours and visa help, <em>planned with care</em></h1>
+        <p class="lead">
+          Tell us where you want to go. We’ll talk through the options with you personally, from Umrah journeys to
+          holidays abroad and visa application files.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--whatsapp" href={waGeneral} target="_blank" rel="noopener"><Icon name="whatsapp" /> Chat on WhatsApp</a>
+          <a class="btn btn--ghost" href="/promotions">See current offers</a>
+        </div>
+        <p class="hero__note">Or call <a href={`tel:${site.landline.tel}`} style="color: #fff">{site.landline.display}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper" aria-labelledby="offers-title">
+    <div class="container">
+      <p class="eyebrow">Featured offers</p>
+      <h2 id="offers-title">Current promotions</h2>
+      <p class="lead" style="margin-bottom: var(--space-xl)">
+        Special Umrah, tour, airline-ticket and hotel offers from our team. Availability and prices are always
+        confirmed directly with you.
+      </p>
+      <LiveOffers
+        client:load
+        featuredOnly
+        limit={6}
+        moreHref="/promotions"
+        emptyText="There are no featured offers on the website right now."
+        whatsappMessage={serviceEnquiryMessage('your current offers', site.url + '/')}
+      />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="services-title">
+    <div class="container">
+      <p class="eyebrow">What we do</p>
+      <h2 id="services-title" style="margin-bottom: var(--space-2xl)">Three ways we can help</h2>
+      <div class="services">
+        <article class="service">
+          <div class="service__media">
+            <Image src={umrah} alt="Pilgrims in the courtyard around the Kaaba at Masjid al-Haram, Makkah" widths={[480, 800, 1200]} sizes="(min-width: 800px) 50vw, 100vw" />
+          </div>
+          <div>
+            <p class="service__num">01</p>
+            <h3>Umrah</h3>
+            <p>Plan your Umrah with a team you can speak to directly. Share your preferred month, how many are travelling and what matters most to you, and we’ll talk you through the options.</p>
+            <a class="text-link" href="/umrah">Umrah services</a>
+          </div>
+        </article>
+        <article class="service">
+          <div class="service__media">
+            <Image src={baku} alt="Baku’s Flame Towers reflected in the bay on a clear day" widths={[480, 800, 1200]} sizes="(min-width: 800px) 50vw, 100vw" />
+          </div>
+          <div>
+            <p class="service__num">02</p>
+            <h3>International tours</h3>
+            <p>Holidays to destinations such as Baku, Thailand, Singapore and Malaysia, arranged around your dates and your group.</p>
+            <a class="text-link" href="/tours">Explore tours</a>
+          </div>
+        </article>
+        <article class="service">
+          <div class="visa-panel on-dark">
+            <h4>Visa application files</h4>
+            <ul class="visa-panel__regions" aria-label="Regions">
+              <li>United Kingdom</li><li>United States</li><li>Europe</li>
+            </ul>
+            <p style="margin: 0; color: rgb(255 255 255 / 0.82)">Help preparing and organising your application file.</p>
+          </div>
+          <div>
+            <p class="service__num">03</p>
+            <h3>Visa assistance</h3>
+            <p>Help preparing visa application files for the UK, USA and Europe. Every case is different, so we discuss your circumstances with you privately. Decisions are made only by the embassy or consulate.</p>
+            <a class="text-link" href="/visa">Visa assistance</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="how-title">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-title" style="margin-bottom: var(--space-xl)">Start with a conversation</h2>
+      <ol class="steps">
+        <li><h3>Tell us your plans</h3><p>Message us on WhatsApp or call. Share your destination, dates and number of travellers.</p></li>
+        <li><h3>Talk through options</h3><p>Our team discusses what’s available and answers your questions directly.</p></li>
+        <li><h3>Confirm with the agency</h3><p>Nothing is booked from the website. Your booking is confirmed only when the agency confirms it with you.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="about-title">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">About us</p>
+        <h2 id="about-title">A Faisalabad travel agency you can talk to</h2>
+        <p class="lead">
+          {site.name} is led by {site.team[0].name} ({site.team[0].role}) and {site.team[1].name} ({site.team[1].role}).
+          You can reach them directly by phone or WhatsApp, or visit the office on Main Gulberg Road.
+        </p>
+        <a class="text-link" href="/about">More about us</a>
+      </div>
+      <ContactBlock compact />
+    </div>
+  </section>
+</BaseLayout>

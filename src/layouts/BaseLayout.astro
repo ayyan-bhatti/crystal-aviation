@@ -1,0 +1,192 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '@fontsource/cinzel/600.css';
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import heroPhoto from '../assets/photos/hero-wing-clouds.jpg';
+import Icon from '../components/Icon';
+import { nav, site } from '../config/site';
+import { isDemoMode } from '../lib/config';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path for the canonical URL, e.g. "/umrah". */
+  path: string;
+  ogImage?: string | null;
+  ogImageAlt?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | null;
+  mobileCta?: boolean;
+  whatsappMessage?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogImage,
+  ogImageAlt,
+  noindex = false,
+  jsonLd = null,
+  mobileCta = true,
+  whatsappMessage = serviceEnquiryMessage('your travel services'),
+} = Astro.props;
+
+const canonical = site.url + (path === '/' ? '/' : path);
+const fullTitle = path === '/' ? `${site.name} — ${site.tagline}, Faisalabad` : `${title} | ${site.name}`;
+const defaultOg = await getImage({ src: heroPhoto, width: 1200, height: 630, format: 'jpg', fit: 'cover' });
+const og = ogImage ?? new URL(defaultOg.src, site.url).toString();
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => current === href || current.startsWith(href + '/');
+const wa = whatsappLink(whatsappMessage);
+// Escape "<" so structured data can never close the script tag.
+const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex, nofollow" /> : null}
+    <meta name="theme-color" content="#0a2a55" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    {ogImageAlt ? <meta property="og:image:alt" content={ogImageAlt} /> : null}
+    <meta property="og:locale" content="en_PK" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {ld ? <script type="application/ld+json" set:html={ld} /> : null}
+  </head>
+  <body class={mobileCta ? 'has-mobile-cta' : undefined}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {
+      isDemoMode ? (
+        <div class="demo-banner" role="note">
+          Demo preview. Sample offers are placeholders, not real packages or prices.
+        </div>
+      ) : null
+    }
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a href="/" class="wordmark" aria-label={`${site.name}, home`}>
+          <span class="wordmark__name">The <span>Crystal</span> Aviation</span>
+          <span class="wordmark__tag">{site.tagline}</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Main" data-open="false">
+          <ul>
+            {
+              nav.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a class="btn btn--whatsapp btn--small header-cta" href={wa} target="_blank" rel="noopener">
+          <Icon name="whatsapp" /> WhatsApp
+        </a>
+        <button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false">
+          <span class="menu-toggle__open"><Icon name="menu" /></span>
+          <span class="menu-toggle__label">Menu</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer on-dark">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <a href="/" class="wordmark" aria-label={`${site.name}, home`}>
+              <span class="wordmark__name">The <span>Crystal</span> Aviation</span>
+              <span class="wordmark__tag">{site.tagline}</span>
+            </a>
+            <p style="margin-top: var(--space-m)">Umrah, international tours and visa file assistance from Faisalabad.</p>
+          </div>
+          <div>
+            <h2>Explore</h2>
+            <ul>
+              {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <h2>Talk to us</h2>
+            <ul>
+              {
+                site.team.map((m) => (
+                  <li>
+                    {m.name}, {m.role}: <a href={`tel:${m.tel}`}>{m.display}</a>
+                  </li>
+                ))
+              }
+              <li>Office: <a href={`tel:${site.landline.tel}`}>{site.landline.display}</a></li>
+              <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Visit</h2>
+            <address style="font-style: normal">
+              {site.address.lines.map((l) => <>{l}<br /></>)}
+            </address>
+            <p style="margin-top: var(--space-s)"><a href={site.address.mapsUrl} target="_blank" rel="noopener">Open in Google Maps</a></p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© {new Date().getFullYear()} {site.name}. Enquiries are not bookings until confirmed by the agency.</span>
+          <span><a href="/image-credits">Photo credits</a></span>
+        </div>
+      </div>
+    </footer>
+
+    {
+      mobileCta ? (
+        <div class="mobile-cta">
+          <a class="btn btn--whatsapp" href={wa} target="_blank" rel="noopener">
+            <Icon name="whatsapp" /> WhatsApp us
+          </a>
+          <a class="btn btn--ghost" href={`tel:${site.team[0].tel}`} aria-label={`Call ${site.team[0].name}`}>
+            <Icon name="phone" /> Call
+          </a>
+        </div>
+      ) : null
+    }
+
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.getElementById('primary-nav');
+      if (toggle && nav) {
+        const label = toggle.querySelector('.menu-toggle__label');
+        const set = (open: boolean) => {
+          nav.dataset.open = String(open);
+          toggle.setAttribute('aria-expanded', String(open));
+          if (label) label.textContent = open ? 'Close' : 'Menu';
+        };
+        toggle.addEventListener('click', () => set(nav.dataset.open !== 'true'));
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && nav.dataset.open === 'true') {
+            set(false);
+            toggle.focus();
+          }
+        });
+        window.matchMedia('(min-width: 960px)').addEventListener('change', () => set(false));
+      }
+    </script>
+  </body>
+</html>
