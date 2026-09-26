@@ -31,6 +31,15 @@ describe('validateForm', () => {
     expect(validateForm(f({ pricing_mode: 'fixed', price_min: '1,50,000' }), { hasPoster: false, publishing: false })).toEqual({});
   });
 
+  it('refuses to publish with a "valid through" date that has already passed (Karachi today)', () => {
+    const today = '2026-09-27';
+    expect(validateForm(f({ description: 'd', valid_through: '2026-09-20' }), { hasPoster: false, publishing: true, today }).valid_through).toBeTruthy();
+    expect(validateForm(f({ description: 'd', valid_through: '2026-09-27' }), { hasPoster: false, publishing: true, today })).toEqual({});
+    expect(validateForm(f({ description: 'd', valid_through: '2026-10-01' }), { hasPoster: false, publishing: true, today })).toEqual({});
+    // saving a draft with a past date is allowed
+    expect(validateForm(f({ valid_through: '2026-09-20' }), { hasPoster: false, publishing: false, today })).toEqual({});
+  });
+
   it('checks date ordering', () => {
     expect(validateForm(f({ travel_start: '2026-12-10', travel_end: '2026-12-01' }), { hasPoster: false, publishing: false }).travel_end).toBeTruthy();
     expect(validateForm(f({ show_from: '2026-12-10', valid_through: '2026-12-01' }), { hasPoster: false, publishing: false }).valid_through).toBeTruthy();

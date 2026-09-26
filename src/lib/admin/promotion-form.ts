@@ -165,7 +165,7 @@ export function previewFromForm(f: FormState, imagePath: string | null): PublicP
 }
 
 /** Validation mirroring the database constraints. `publishing` adds the content rule. */
-export function validateForm(f: FormState, opts: { hasPoster: boolean; publishing: boolean }): FieldErrors {
+export function validateForm(f: FormState, opts: { hasPoster: boolean; publishing: boolean; today?: string }): FieldErrors {
   const e: FieldErrors = {};
   const title = f.title.trim();
   if (title.length < 3) e.title = 'Enter a title of at least 3 characters.';
@@ -210,6 +210,8 @@ export function validateForm(f: FormState, opts: { hasPoster: boolean; publishin
 
   if (f.show_from && f.valid_through && f.valid_through < f.show_from)
     e.valid_through = '“Valid through” must be on or after “Show from”.';
+  else if (opts.publishing && f.valid_through && f.valid_through < (opts.today ?? karachiToday()))
+    e.valid_through = 'This date has already passed, so the offer would be hidden straight away. Choose today or a later date, or leave it empty.';
 
   const so = Number(f.sort_order);
   if (!Number.isInteger(so) || so < -1000 || so > 1000) e.sort_order = 'Use a whole number between -1000 and 1000.';

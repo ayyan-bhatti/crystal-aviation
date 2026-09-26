@@ -202,11 +202,15 @@ export default function PromotionEditor({ sb, initial, onDone, onSessionProblem 
           .
         </>
       ) : null;
+    const notShowing =
+      st.label === 'Expired'
+        ? ' It is not on the website because its “Valid through” date has passed.'
+        : st.label === 'Scheduled'
+          ? ' It will appear on the website on its “Show from” date.'
+          : '';
     const text =
       target === 'published'
-        ? status === 'published'
-          ? 'Changes saved and live.'
-          : `Published. Status: ${st.label}.`
+        ? (status === 'published' ? 'Changes saved.' : 'Published.') + (notShowing || ' It is live on the website now.')
         : target === 'draft' && status === 'published'
           ? 'Unpublished. It is now a draft and hidden from the website.'
           : 'Saved as a draft. It is not on the website yet.';

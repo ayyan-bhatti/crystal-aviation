@@ -78,6 +78,12 @@ export default function PromotionsList({ sb, onEdit, onNew, onSessionProblem }: 
     const row = data as Promotion;
     setItems((prev) => prev?.map((x) => (x.id === row.id ? row : x)) ?? null);
     const verb = status === 'published' ? 'Published' : status === 'draft' ? 'Unpublished (now a draft)' : 'Hidden from the website';
+    const st = liveState(row);
+    if (status === 'published' && st.tone !== 'live') {
+      const why = st.label === 'Expired' ? 'its “Valid through” date has passed. Open it with Edit and change or clear the date.' : 'its “Show from” date is still in the future.';
+      setMessage({ ok: false, text: `Published “${row.title}”, but it is not showing on the website because ${why}` });
+      return;
+    }
     setMessage({ ok: true, text: `${verb}: “${row.title}”.` });
   }
 
