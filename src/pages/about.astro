@@ -2,43 +2,69 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Intro from '../components/Intro.astro';
 import CardContact from '../components/CardContact.astro';
-import greenDome from '../assets/photos/madinah-green-dome.jpg';
+import ExploreCards from '../components/ExploreCards.astro';
+import Icon from '../components/Icon';
+import madinah from '../assets/photos/madinah-golden-hour.jpg';
+import baku from '../assets/photos/baku-old-city.jpg';
+import london from '../assets/photos/london-big-ben.jpg';
+import langkawi from '../assets/photos/langkawi-bay.jpg';
 import { site } from '../config/site';
+import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
+
+const msg = serviceEnquiryMessage('your travel services', site.url + '/about');
 ---
 
 <BaseLayout
   title="About us"
   path="/about"
   description="The Crystal Aviation is a Faisalabad travel agency led by Umar Farooq (CEO) and Zeeshan Saleem (MD), arranging Umrah, holidays abroad and visa application files."
+  whatsappMessage={msg}
 >
   <Intro
     label="About us"
-    title={site.name}
-    lead={`${site.tagline}. A travel agency in Rafih Plaza, Main Gulberg Road, Faisalabad.`}
-    image={greenDome}
-    imageAlt="The green dome and minarets of Masjid an-Nabawi against a blue sky"
-    caption="Masjid an-Nabawi, Madinah"
-    position="50% 40%"
-  />
+    title="Umrah, holidays and visa help from Faisalabad."
+    lead={`${site.name} is a travel agency in Rafih Plaza, Main Gulberg Road. We help families and travellers plan Umrah, trips abroad and visa application files.`}
+    photos={[
+      { src: madinah, alt: 'Masjid an-Nabawi in Madinah at sunset', label: 'Umrah', href: '/umrah', position: '40% 50%' },
+      { src: baku, alt: 'Old-city street in Baku with the Flame Towers', label: 'Baku', href: '/tours#baku', position: '50% 60%' },
+      { src: london, alt: 'Big Ben and a red bus in London', label: 'UK visa help', href: '/visa', position: '50% 30%' },
+      { src: langkawi, alt: 'Islands and bay of Langkawi, Malaysia', label: 'Malaysia', href: '/tours#malaysia' },
+    ]}
+  >
+    <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
+    <a class="btn btn--ghost" href="/promotions">Current offers</a>
+  </Intro>
 
-  <section class="section">
+  <section class="section section--sand">
     <div class="container split">
-      <p class="statement">We arrange Umrah, holidays abroad and visa application files for travellers from Faisalabad.</p>
       <div>
+        <h2>Who we are</h2>
         <p class="lead">
-          The agency is led by {site.team[0].name}, {site.team[0].role}, and {site.team[1].name}, {site.team[1].role}.
-          You can speak with them directly by phone or WhatsApp, or visit the office.
+          The agency is led by {site.team[0].name}, {site.team[0].role}, and {site.team[1].name}, {site.team[1].role}. You can
+          speak with them directly by phone or WhatsApp, or visit the office.
         </p>
-        <p>We also share special airline-ticket and hotel offers as they become available. You’ll find them on our offers page.</p>
-        <p class="muted">We are a travel agency, not an airline. Offers on this website are a starting point for a conversation, and nothing is booked until our team confirms it with you.</p>
+      </div>
+      <div>
+        <ul class="checklist">
+          <li><a href="/umrah">Umrah</a>: planned around your dates and your family</li>
+          <li><a href="/tours">Holidays abroad</a>: Baku, Thailand, Singapore, Malaysia and more</li>
+          <li><a href="/visa">Visa application files</a> for the UK, USA and Europe</li>
+          <li><a href="/promotions">Special offers</a> on airline tickets and hotels</li>
+        </ul>
+        <p class="muted small">We are a travel agency, not an airline. Nothing is booked through this website until our team confirms it with you.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--sand" aria-labelledby="about-contact">
-    <div class="container">
-      <h2 id="about-contact" class="visually-hidden">Contact</h2>
-      <div style="max-width: 52rem; margin-inline: auto"><CardContact /></div>
+  <ExploreCards heading="Explore where we can take you" intro="Tap a destination to see more, or message us about it on WhatsApp." />
+
+  <section class="section" aria-labelledby="about-contact">
+    <div class="container split" style="align-items: center">
+      <div>
+        <h2 id="about-contact">Visit or call us</h2>
+        <p class="lead">Talk to {site.team[0].name} or {site.team[1].name} directly, or come to the office in Rafih Plaza.</p>
+      </div>
+      <CardContact />
     </div>
   </section>
 </BaseLayout>

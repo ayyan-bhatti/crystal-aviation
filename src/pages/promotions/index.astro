@@ -6,7 +6,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Intro from '../../components/Intro.astro';
 import LiveOffers from '../../components/offers/LiveOffers';
 import Icon from '../../components/Icon';
-import departures from '../../assets/photos/airport-departures.jpg';
+import greenDome from '../../assets/photos/madinah-green-dome.jpg';
+import bangkok from '../../assets/photos/bangkok-wat-arun.jpg';
+import plane from '../../assets/photos/plane-blue-sky.jpg';
+import pool from '../../assets/photos/resort-pool.jpg';
 import { site } from '../../config/site';
 import { fetchActivePromotions, MAX_PAGE_SIZE } from '../../lib/promotions-api';
 import { CATEGORIES, CATEGORY_LABELS, type Category } from '../../lib/types';
@@ -38,9 +41,12 @@ const photos = await categoryPhotos();
     label="Offers"
     title="Current offers"
     lead="Umrah, tour, airline-ticket and hotel promotions published by our team. Prices and availability are always confirmed with you before anything is booked."
-    image={departures}
-    imageAlt="Travellers walking past a large departures board in an airport"
-    position="50% 40%"
+    photos={[
+      { src: greenDome, alt: "The green dome of Masjid an-Nabawi, Madinah", label: "Umrah offers", href: "/promotions?category=umrah", position: "50% 35%" },
+      { src: bangkok, alt: "Wat Arun temple in Bangkok at sunset", label: "Tour offers", href: "/promotions?category=tour" },
+      { src: plane, alt: "A passenger jet in a clear blue sky", label: "Airline tickets", href: "/promotions?category=flight" },
+      { src: pool, alt: "Resort swimming pool with sun loungers", label: "Hotel offers", href: "/promotions?category=hotel" },
+    ]}
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about offers</a>
   </Intro>

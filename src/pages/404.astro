@@ -11,11 +11,9 @@ import { serviceEnquiryMessage, whatsappLink } from '../lib/whatsapp';
     label="Page not found"
     title="We couldn’t find that page."
     lead="The link may be old, or the page may have moved. Try the homepage, or message us and we’ll help."
-    image={langkawi}
-    imageAlt="View over the islands and bay of Langkawi, Malaysia"
+    photos={[{ src: langkawi, alt: "View over the islands and bay of Langkawi, Malaysia" }]}
   >
     <a class="btn" href="/">Go to the homepage</a>
     <a class="btn btn--whatsapp" href={whatsappLink(serviceEnquiryMessage('your travel services'))} target="_blank" rel="noopener"><Icon name="whatsapp" /> WhatsApp us</a>
   </Intro>
-  <div class="section" style="padding-top: 0"></div>
 </BaseLayout>

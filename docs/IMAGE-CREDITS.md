@@ -17,6 +17,10 @@ These photos are **temporary** placeholders until the agency supplies its own. A
 | airport-travellers.jpg | Travellers at departure boards | Jacques Dillies | https://unsplash.com/photos/CgHB4gcjUkQ |
 | airport-departures.jpg | Airport departures board | jack berry | https://unsplash.com/photos/hNQ0RH_a5Jo |
 | wing-above-clouds.jpg | Aircraft wing above golden clouds | Tim Schmidbauer | https://unsplash.com/photos/_7gSua5Xniw |
+| lucerne-lake.jpg | Lucerne lake and old town, Switzerland | Srini Somanchi | https://unsplash.com/photos/kNubgkN6mI0 |
+| resort-pool.jpg | Resort pool with sun loungers | Pavel Gromov | https://unsplash.com/photos/7-xOLk5UD5Y |
+| plane-blue-sky.jpg | Passenger jet in a blue sky | Rama Krushna Behera | https://unsplash.com/photos/8Likay_xccc |
+| rome-colosseum.jpg | The Colosseum, Rome | Václav Pechar | https://unsplash.com/photos/d93fZPCQPCo |
 
 Not used on purpose: passport photos. The free options showed US passports, which would mislead on a visa-assistance page for Pakistani travellers.
 

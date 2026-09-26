@@ -1,42 +1,66 @@
 ---
+// Inner-page intro: text on one side, a photo (or a collage of 2–4 photos) on
+// the other. Photos keep a natural aspect ratio instead of thin banner crops.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+
+export interface IntroPhoto {
+  src: ImageMetadata;
+  alt: string;
+  label?: string;
+  href?: string;
+  position?: string;
+}
 
 interface Props {
   label?: string;
   title: string;
   lead: string;
-  image?: ImageMetadata;
-  imageAlt?: string;
+  photos?: IntroPhoto[];
   caption?: string;
-  position?: string;
 }
-const { label, title, lead, image, imageAlt = '', caption, position = 'center' } = Astro.props;
+const { label, title, lead, photos = [], caption } = Astro.props;
+const collage = photos.length > 1;
 ---
 
 <section class="intro" aria-labelledby="page-title">
-  <div class="container">
-    <div class="intro__grid">
-      <div>
-        {label ? <p class="label">{label}</p> : null}
-        <h1 id="page-title">{title}</h1>
-      </div>
-      <div>
-        <p class="lead">{lead}</p>
-        <div class="btn-row"><slot /></div>
-      </div>
+  <div class="container intro__grid">
+    <div class="intro__text">
+      {label ? <p class="label">{label}</p> : null}
+      <h1 id="page-title">{title}</h1>
+      <p class="lead">{lead}</p>
+      <div class="btn-row"><slot /></div>
     </div>
+    {
+      photos.length ? (
+        <figure class:list={['intro__media', { 'intro__media--collage': collage, [`collage--${photos.length}`]: collage }]}>
+          {photos.map((p, i) => {
+            const img = (
+              <Image
+                src={p.src}
+                alt={p.alt}
+                widths={collage ? [360, 600, 900] : [600, 900, 1300, 1800]}
+                sizes={collage ? '(min-width: 900px) 24vw, 50vw' : '(min-width: 900px) 48vw, 100vw'}
+                loading="eager"
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+                style={p.position ? `object-position: ${p.position}` : undefined}
+              />
+            );
+            const inner = (
+              <>
+                {img}
+                {p.label ? <span class="intro__tag">{p.label}</span> : null}
+              </>
+            );
+            return p.href ? (
+              <a class="intro__photo" href={p.href}>{inner}</a>
+            ) : (
+              <div class="intro__photo">{inner}</div>
+            );
+          })}
+          {caption ? <figcaption class="caption">{caption}</figcaption> : null}
+        </figure>
+      ) : null
+    }
   </div>
 </section>
-{
-  image ? (
-    <div class="container">
-      <figure class="wide-photo">
-        <div>
-          <Image src={image} alt={imageAlt} widths={[640, 1024, 1600, 2200]} sizes="(min-width: 1300px) 1216px, 100vw" loading="eager" fetchpriority="high" style={`object-position: ${position}`} />
-        </div>
-        {caption ? <figcaption class="caption">{caption}</figcaption> : null}
-      </figure>
-    </div>
-  ) : null
-}

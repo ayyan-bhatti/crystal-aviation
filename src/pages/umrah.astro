@@ -26,10 +26,8 @@ const photos = await categoryPhotos();
     label="Umrah"
     title="Umrah, arranged around your family."
     lead="Speak directly with our team about when you’d like to travel, who is coming with you, and what matters most for your journey."
-    image={madinah}
-    imageAlt="The courtyard of Masjid an-Nabawi in Madinah at sunset, with worshippers beneath the great umbrellas"
+    photos={[{ src: madinah, alt: "The courtyard of Masjid an-Nabawi in Madinah at sunset, with worshippers beneath the great umbrellas", position: "40% 50%" }]}
     caption="Masjid an-Nabawi, Madinah"
-    position="50% 55%"
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about Umrah</a>
   </Intro>

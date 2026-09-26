@@ -14,6 +14,8 @@ export default defineConfig({
   // No Astro sessions: avoids provisioning a KV namespace.
   session: false,
   integrations: [react()],
+  // The Astro dev toolbar is a local-only overlay; keep it off so previews look like the real site.
+  devToolbar: { enabled: false },
   trailingSlash: 'never',
   build: { format: 'file' },
   security: { checkOrigin: true },

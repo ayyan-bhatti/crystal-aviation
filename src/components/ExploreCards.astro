@@ -1,0 +1,54 @@
+---
+// Clickable photo cards that lead to the rest of the site (Umrah, each
+// destination, visa help and offers).
+import { Image } from 'astro:assets';
+import madinah from '../assets/photos/madinah-golden-hour.jpg';
+import baku from '../assets/photos/baku-old-city.jpg';
+import bangkok from '../assets/photos/bangkok-wat-arun.jpg';
+import singapore from '../assets/photos/singapore-supertrees.jpg';
+import langkawi from '../assets/photos/langkawi-bay.jpg';
+import london from '../assets/photos/london-big-ben.jpg';
+import lucerne from '../assets/photos/lucerne-lake.jpg';
+import pool from '../assets/photos/resort-pool.jpg';
+
+interface Props {
+  heading?: string;
+  intro?: string;
+}
+const { heading = 'Where would you like to go?', intro } = Astro.props;
+
+const cards = [
+  { title: 'Umrah', cta: 'View Umrah', href: '/umrah', src: madinah, alt: 'Masjid an-Nabawi in Madinah at sunset', pos: '40% 50%' },
+  { title: 'Baku, Azerbaijan', cta: 'View Baku', href: '/tours#baku', src: baku, alt: 'Old-city street in Baku with the Flame Towers', pos: '50% 60%' },
+  { title: 'Thailand', cta: 'View Thailand', href: '/tours#thailand', src: bangkok, alt: 'Wat Arun temple in Bangkok at sunset', pos: '50% 50%' },
+  { title: 'Singapore', cta: 'View Singapore', href: '/tours#singapore', src: singapore, alt: 'Supertree Grove at Gardens by the Bay, Singapore', pos: '50% 30%' },
+  { title: 'Malaysia', cta: 'View Malaysia', href: '/tours#malaysia', src: langkawi, alt: 'Islands and bay of Langkawi, Malaysia', pos: '50% 50%' },
+  { title: 'UK visa help', cta: 'View visa help', href: '/visa', src: london, alt: 'Big Ben and a red bus in London', pos: '50% 30%' },
+  { title: 'Europe visa help', cta: 'View visa help', href: '/visa', src: lucerne, alt: 'Lucerne lake and mountains, Switzerland', pos: '50% 50%' },
+  { title: 'Current offers', cta: 'View offers', href: '/promotions', src: pool, alt: 'Resort swimming pool with sun loungers', pos: '50% 50%' },
+];
+---
+
+<section class="section section--white" aria-labelledby="explore-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="explore-title">{heading}</h2>
+      {intro ? <p>{intro}</p> : null}
+    </div>
+    <ul class="explore">
+      {
+        cards.map((c) => (
+          <li>
+            <a class="explore__card" href={c.href}>
+              <span class="explore__img">
+                <Image src={c.src} alt={c.alt} widths={[360, 600]} sizes="(min-width: 1000px) 24vw, (min-width: 600px) 45vw, 100vw" style={`object-position: ${c.pos}`} />
+              </span>
+              <span class="explore__title">{c.title}</span>
+              <span class="explore__cta">{c.cta} →</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

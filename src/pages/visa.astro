@@ -2,8 +2,12 @@
 import { categoryPhotos } from '../lib/category-photos';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Intro from '../components/Intro.astro';
-import VisaRegions from '../components/VisaRegions.astro';
+import { Image } from 'astro:assets';
 import london from '../assets/photos/london-big-ben.jpg';
+import newYork from '../assets/photos/new-york-brooklyn-bridge.jpg';
+import paris from '../assets/photos/paris-street.jpg';
+import lucerne from '../assets/photos/lucerne-lake.jpg';
+import rome from '../assets/photos/rome-colosseum.jpg';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
@@ -24,10 +28,12 @@ const photos = await categoryPhotos();
     label="Visa assistance"
     title="Application files, prepared properly."
     lead="Consultation and application-file support for visits to the United Kingdom, the United States and Europe."
-    image={london}
-    imageAlt="Big Ben and the Houses of Parliament in London with a red bus passing"
-    caption="Westminster, London"
-    position="50% 12%"
+    photos={[
+      { src: london, alt: "Big Ben and the Houses of Parliament in London with a red bus passing", label: "United Kingdom", position: "50% 35%" },
+      { src: newYork, alt: "The Brooklyn Bridge and Manhattan skyline in New York at dusk", label: "United States" },
+      { src: paris, alt: "A Paris street with the Eiffel Tower at the end", label: "France" },
+      { src: lucerne, alt: "Lucerne lake and mountains, Switzerland", label: "Switzerland" },
+    ]}
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Discuss your application</a>
   </Intro>
@@ -42,7 +48,12 @@ const photos = await categoryPhotos();
           <li>Organising and preparing your application file</li>
         </ul>
       </div>
-      <VisaRegions />
+      <figure style="margin: 0">
+        <div style="aspect-ratio: 4 / 3; overflow: hidden">
+          <Image src={rome} alt="The Colosseum in Rome seen from a paved path" widths={[500, 900]} sizes="(min-width: 860px) 45vw, 100vw" style="width: 100%; height: 100%; object-fit: cover" />
+        </div>
+        <figcaption class="caption">Rome, Italy</figcaption>
+      </figure>
     </div>
   </section>
 

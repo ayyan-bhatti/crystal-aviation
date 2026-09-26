@@ -6,7 +6,7 @@ import Intro from '../components/Intro.astro';
 import LiveOffers from '../components/offers/LiveOffers';
 import EnquiryComposer from '../components/EnquiryComposer';
 import Icon from '../components/Icon';
-import wing from '../assets/photos/wing-above-clouds.jpg';
+import plane from '../assets/photos/plane-blue-sky.jpg';
 import baku from '../assets/photos/baku-old-city.jpg';
 import bangkok from '../assets/photos/bangkok-wat-arun.jpg';
 import singapore from '../assets/photos/singapore-supertrees.jpg';
@@ -38,9 +38,7 @@ const photos = await categoryPhotos();
     label="International tours"
     title="Holidays abroad, arranged around you."
     lead="Tell us where you’d like to go, when, and who’s coming. We’ll talk through what’s available for your dates, including airline tickets and hotels."
-    image={wing}
-    imageAlt="An aircraft wing above golden clouds at sunrise"
-    position="50% 60%"
+    photos={[{ src: plane, alt: "A passenger jet flying overhead in a clear blue sky" }]}
   >
     <a class="btn btn--whatsapp" href={whatsappLink(msg)} target="_blank" rel="noopener"><Icon name="whatsapp" /> Ask about a tour</a>
   </Intro>
@@ -50,7 +48,7 @@ const photos = await categoryPhotos();
       <div class="mosaic">
         {
           destinations.map((d, i) => (
-            <a class:list={['tile', { 'tile--tall': i === 0 }]} href={ask(d.name)} target="_blank" rel="noopener">
+            <a id={d.name.toLowerCase()} class:list={['tile', { 'tile--tall': i === 0 }]} href={ask(d.name)} target="_blank" rel="noopener">
               <Image src={d.image} alt={d.alt} widths={[500, 800, 1200]} sizes="(min-width: 1000px) 35vw, 100vw" style={`object-position: ${d.pos}`} />
               <div class="tile__body">
                 <h2 class="tile__name">{d.name}</h2>

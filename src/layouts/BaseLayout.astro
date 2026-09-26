@@ -21,7 +21,6 @@ interface Props {
   ogImageAlt?: string;
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | null;
-  mobileCta?: boolean;
   whatsappMessage?: string;
 }
 
@@ -33,7 +32,6 @@ const {
   ogImageAlt,
   noindex = false,
   jsonLd = null,
-  mobileCta = true,
   whatsappMessage = serviceEnquiryMessage('your travel services'),
 } = Astro.props;
 
@@ -70,7 +68,7 @@ const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
     <meta name="twitter:card" content="summary_large_image" />
     {ld ? <script type="application/ld+json" set:html={ld} /> : null}
   </head>
-  <body class={mobileCta ? 'has-mobile-cta' : undefined}>
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
     {
       isDemoMode ? (
@@ -165,18 +163,9 @@ const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, '\\u003c') : null;
       </div>
     </footer>
 
-    {
-      mobileCta ? (
-        <div class="mobile-cta">
-          <a class="btn btn--whatsapp" href={wa} target="_blank" rel="noopener">
-            <Icon name="whatsapp" /> WhatsApp us
-          </a>
-          <a class="btn btn--ghost" href={`tel:${site.team[0].tel}`} aria-label={`Call ${site.team[0].name}`}>
-            <Icon name="phone" /> Call
-          </a>
-        </div>
-      ) : null
-    }
+    <a class="wa-float" href={wa} target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" title="Chat with us on WhatsApp">
+      <Icon name="whatsapp" />
+    </a>
 
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
